@@ -1,0 +1,11 @@
+model\Gondozasok.class
+model\Gondozottak.class
+org\example\Valami$1.class
+database\EmployeeController.class
+controllers\GondozokController.class
+module-info.class
+org\example\Valami.class
+model\Dolgozok.class
+org\example\App.class
+org\example\Valami$2.class
+controllers\SidebarController.class
