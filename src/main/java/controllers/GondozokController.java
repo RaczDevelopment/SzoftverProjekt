@@ -1,20 +1,15 @@
 package controllers;
 
-import database.EmployeeController;
-
+import database.EmployeeRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Dolgozok;
-import org.example.App;
 
-import java.net.URL;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
 
 public class GondozokController {
 
@@ -66,22 +61,25 @@ public class GondozokController {
     @FXML
     private TableColumn<Dolgozok, LocalDate> columndDateOfEmployment;
 
+    public void initialize(){
+
+    }
 
     public void initColumn(){
-        columndID.setCellValueFactory(new PropertyValueFactory<Dolgozok, Integer>("dID"));
-        columndName.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("dName"));
-        columndCity.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("dCity"));
-        columndStreet.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("dStreet"));
-        columndNumber.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("dNumber"));
-        columndDateOfBirth.setCellValueFactory(new PropertyValueFactory<Dolgozok, LocalDate>("dDateOfBirth"));
-        columndDateOfEmployment.setCellValueFactory(new PropertyValueFactory<Dolgozok, LocalDate>("dDateOfEmployment"));
+        columndID.setCellValueFactory(new PropertyValueFactory<Dolgozok, Integer>("id"));
+        columndName.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("name"));
+        columndCity.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("city"));
+        columndStreet.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("street"));
+        columndNumber.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("number"));
+        columndDateOfBirth.setCellValueFactory(new PropertyValueFactory<Dolgozok, LocalDate>("dateOfBirth"));
+        columndDateOfEmployment.setCellValueFactory(new PropertyValueFactory<Dolgozok, LocalDate>("startOfEmployment"));
     }
 
 
 
     @FXML
     void ListData(ActionEvent event) {
-        ObservableList<Dolgozok> data = FXCollections.observableArrayList(EmployeeController.getEmployee());
+        ObservableList<Dolgozok> data = FXCollections.observableArrayList(EmployeeRepository.getAllAsList());
         employees.setItems(data);
         initColumn();
     }

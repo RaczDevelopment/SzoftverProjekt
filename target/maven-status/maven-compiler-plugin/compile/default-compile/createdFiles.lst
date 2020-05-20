@@ -1,9 +1,10 @@
 model\Gondozasok.class
 model\Gondozottak.class
 org\example\Valami$1.class
-database\EmployeeController.class
+model\Dolgozok$DolgozokBuilder.class
+database\EmployeeRepository.class
 controllers\GondozokController.class
-module-info.class
+database\EmfGetter.class
 org\example\Valami.class
 model\Dolgozok.class
 org\example\App.class

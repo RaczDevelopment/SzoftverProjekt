@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="233.0" prefWidth="714.0" style="-fx-background-color: #858585;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GondozokController">
+<AnchorPane style="-fx-background-color: #858585;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GondozokController">
     <children>
         <TextField fx:id="tfdName" layoutX="14.0" layoutY="116.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
         <TextField fx:id="tfdCity" layoutX="196.0" layoutY="116.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
@@ -18,7 +19,7 @@
                 <Font size="34.0" />
             </font>
         </Label>
-        <TableView fx:id="employees" layoutX="11.0" layoutY="235.0" prefHeight="262.0" prefWidth="692.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="250.0">
+        <TableView fx:id="employees" layoutX="11.0" layoutY="294.0" prefHeight="92.0" prefWidth="572.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="294.0">
             <columns>
                 <TableColumn fx:id="columndID" prefWidth="34.0" text="ID" />
                 <TableColumn fx:id="columndName" prefWidth="114.0" text="Név" />
@@ -32,6 +33,7 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-        <Button fx:id="btnList" layoutX="417.0" layoutY="182.0" mnemonicParsing="false" onAction="#ListData" text="Button" />
+        <Button fx:id="btnList" layoutX="14.0" layoutY="259.0" mnemonicParsing="false" onAction="#ListData" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #3b3b3b2e;" text="Search" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
+      <TextField layoutX="165.0" layoutY="259.0" prefHeight="31.0" prefWidth="521.0" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="14.0" />
     </children>
 </AnchorPane>

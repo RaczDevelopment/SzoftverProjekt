@@ -1,11 +1,11 @@
 package model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import lombok.*;
-
 import java.time.LocalDate;
 
 
@@ -20,79 +20,79 @@ public class Dolgozok {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer dID;
+    private Integer id;
 
     @Column(name = "Nev")
-    private String dName;
+    private String name;
 
     @Column(name = "Varos")
-    private String dCity;
+    private String city;
 
     @Column(name = "Utca")
-    private String dStreet;
+    private String street;
 
     @Column(name = "Szam")
-    private String dNumber;
+    private String number;
 
     @Column(name = "Szuletesi_Datum")
-    private LocalDate dDateOfBirth;
+    private LocalDate dateOfBirth;
 
     @Column(name = "Alk_Datum")
-    private LocalDate dStartOfEmployment;
+    private LocalDate startOfEmployment;
 
-    public Integer getdID() {
-        return dID;
+    public Integer getId() {
+        return id;
     }
 
-    public void setdID(Integer dID) {
-        this.dID = dID;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getdName() {
-        return dName;
+    public String getName() {
+        return name;
     }
 
-    public void setdName(String dName) {
-        this.dName = dName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getdCity() {
-        return dCity;
+    public String getCity() {
+        return city;
     }
 
-    public void setdCity(String dCity) {
-        this.dCity = dCity;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getdStreet() {
-        return dStreet;
+    public String getStreet() {
+        return street;
     }
 
-    public void setdStreet(String dStreet) {
-        this.dStreet = dStreet;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    public String getdNumber() {
-        return dNumber;
+    public String getNumber() {
+        return number;
     }
 
-    public void setdNumber(String dNumber) {
-        this.dNumber = dNumber;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
-    public LocalDate getdDateOfBirth() {
-        return dDateOfBirth;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setdDateOfBirth(LocalDate dDateOfBirth) {
-        this.dDateOfBirth = dDateOfBirth;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public LocalDate getdStartOfEmployment() {
-        return dStartOfEmployment;
+    public LocalDate getStartOfEmployment() {
+        return startOfEmployment;
     }
 
-    public void setdStartOfEmployment(LocalDate dStartOfEmployment) {
-        this.dStartOfEmployment = dStartOfEmployment;
+    public void setStartOfEmployment(LocalDate startOfEmployment) {
+        this.startOfEmployment = startOfEmployment;
     }
 }
