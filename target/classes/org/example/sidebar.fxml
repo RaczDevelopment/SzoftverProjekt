@@ -16,7 +16,7 @@
    <left>
       <VBox prefHeight="515.0" prefWidth="230.0" style="-fx-background-color: #3b3b3b;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnStatisztikak" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="54.0" prefWidth="304.0" stylesheets="@../../css/style.css" text="Statisztikák" textFill="WHITE">
+            <Button fx:id="btnStatistics" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="54.0" prefWidth="304.0" stylesheets="@../../css/style.css" text="Statisztikák" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font></Button>
@@ -24,11 +24,11 @@
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <Button fx:id="btnGondozok" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="54.0" prefWidth="280.0" stylesheets="@../../css/style.css" text="Gondozók" textFill="WHITE" textOverrun="CLIP">
+            <Button fx:id="btnEmployee" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="54.0" prefWidth="280.0" stylesheets="@../../css/style.css" text="Dolgozók" textFill="WHITE" textOverrun="CLIP">
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <Button fx:id="btnGondozotak" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="54.0" prefWidth="291.0" stylesheets="@../../css/style.css" text="Gondozotak" textFill="WHITE">
+            <Button fx:id="btnElders" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="54.0" prefWidth="291.0" stylesheets="@../../css/style.css" text="Ellátottak" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font></Button>

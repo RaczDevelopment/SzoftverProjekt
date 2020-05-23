@@ -25,6 +25,9 @@ public class Dolgozok {
     @Column(name = "Nev")
     private String name;
 
+    @Column(name = "Nem")
+    private String gender;
+
     @Column(name = "Varos")
     private String city;
 
@@ -55,6 +58,10 @@ public class Dolgozok {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getGender() { return gender; }
+
+    public void setGender(String gender) { this.gender = gender; }
 
     public String getCity() {
         return city;

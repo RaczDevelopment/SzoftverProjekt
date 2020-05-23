@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.example.App;
+import org.example.Main;
 
 import org.tinylog.Logger;
 
@@ -25,16 +25,16 @@ public class SidebarController {
     private ImageView btnExit;
 
     @FXML
-    private Button btnGondozok;
+    private Button btnEmployee;
 
     @FXML
-    private Button btnGondozotak;
+    private Button btnElders;
 
     @FXML
     private Button btnGondozasok;
 
     @FXML
-    private Button btnStatisztikak;
+    private Button btnStatistics;
 
     Stage stage = null;
 
@@ -49,24 +49,24 @@ public class SidebarController {
 
     @FXML
     void handleClicks(MouseEvent event) throws IOException {
-        if(event.getSource() == btnGondozok){
-            loadFXML("gondozok");
+        if(event.getSource() == btnEmployee){
+            loadFXML("employee");
         }
-        else if(event.getSource() == btnGondozotak){
-            loadFXML("gondozotak");
+        else if(event.getSource() == btnElders){
+            loadFXML("elders");
         }
         else if(event.getSource() == btnGondozasok){
             loadFXML("gondozasok");
         }
-        else if(event.getSource() == btnStatisztikak){
-            loadFXML("statisztikak");
+        else if(event.getSource() == btnStatistics){
+            loadFXML("statistics");
         }
     }
 
     private void loadFXML(String Tab){
         AnchorPane root = null;
         try{
-            root = FXMLLoader.load(App.class.getResource(Tab+".fxml"));
+            root = FXMLLoader.load(Main.class.getResource(Tab+".fxml"));
             Logger.info("FXML loaded.");
         } catch (IOException ex ) {
             Logger.error("FXML loading failed.");

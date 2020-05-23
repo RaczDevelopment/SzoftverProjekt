@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.collections.FXCollections?>
+
+<AnchorPane style="-fx-background-color: #4a4a4a;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EmployeeController">
+    <children>
+        <TextField fx:id="tfName" layoutX="14.0" layoutY="116.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
+        <TextField fx:id="tfCity" layoutX="378.0" layoutY="116.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
+        <TextField fx:id="tfStreet" layoutX="556.0" layoutY="116.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
+        <TextField fx:id="tfNumber" layoutX="14.0" layoutY="182.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
+        <DatePicker fx:id="dpStartOfEmployment" editable="false" layoutX="378.0" layoutY="182.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
+        <DatePicker fx:id="dpDateOfBirth" editable="false" layoutX="196.0" layoutY="182.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
+        <Button layoutX="550.0" layoutY="182.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAdd" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" text="Hozzáadás" textFill="WHITE" />
+        <Label layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="316.0" text="Dolgozók" textFill="WHITE">
+            <font>
+                <Font size="34.0" />
+            </font>
+        </Label>
+        <TableView fx:id="employees" layoutX="11.0" layoutY="294.0" prefHeight="92.0" prefWidth="572.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="294.0">
+            <columns>
+                <TableColumn fx:id="columnID" maxWidth="1500.0" minWidth="-1.0" prefWidth="-1.0" text="ID" />
+                <TableColumn fx:id="columnName" minWidth="-1.0" prefWidth="-1.0" text="Név" />
+                <TableColumn fx:id="columnGender" prefWidth="75.0" text="Nem" />
+                <TableColumn fx:id="columnCity" minWidth="-1.0" prefWidth="-1.0" text="Város" />
+                <TableColumn fx:id="columnStreet" minWidth="-1.0" prefWidth="-1.0" text="Utca" />
+                <TableColumn fx:id="columnNumber" minWidth="-1.0" prefWidth="-1.0" text="Házszám" />
+                <TableColumn fx:id="columnDateOfBirth" minWidth="-1.0" prefWidth="-1.0" text="Születési idő" />
+                <TableColumn fx:id="columnDateOfEmployment" minWidth="-1.0" prefWidth="-1.0" text="Foglalkoztatás kezdete" />
+                <TableColumn fx:id="columnDelete" maxWidth="3000.0" minWidth="-1.0" prefWidth="-1.0" text="Törlés" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+        <Button layoutX="14.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" text="Keresés" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
+        <TextField fx:id="tfSearch" layoutX="165.0" layoutY="259.0" prefHeight="31.0" prefWidth="521.0" promptText="Adjon meg egy nevet" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="14.0" />
+        <Label layoutX="14.0" layoutY="95.0" prefHeight="21.0" prefWidth="27.0" text="Név" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
+        <Label layoutX="378.0" layoutY="95.0" prefHeight="21.0" prefWidth="70.0" text="Város" textFill="WHITE" AnchorPane.leftAnchor="378.0" />
+        <Label layoutX="556.0" layoutY="95.0" text="Utca" textFill="WHITE" AnchorPane.leftAnchor="556.0" />
+        <Label layoutX="14.0" layoutY="161.0" text="Házszám" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
+        <Label layoutX="196.0" layoutY="161.0" prefHeight="21.0" prefWidth="89.0" text="Születési idő" textFill="WHITE" AnchorPane.leftAnchor="196.0" />
+        <Label layoutX="378.0" layoutY="161.0" text="Foglalkoztatás kezd." textFill="WHITE" AnchorPane.leftAnchor="378.0" />
+        <ComboBox fx:id="cbGender" editable="true" layoutX="196.0" layoutY="116.0" prefHeight="31.0" prefWidth="150.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Férfi" />
+                    <String fx:value="Nő" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <Label layoutX="196.0" layoutY="95.0" text="Nem" textFill="WHITE" />
+    </children>
+</AnchorPane>
