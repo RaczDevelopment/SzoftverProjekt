@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.collections.FXCollections?>
 
-<AnchorPane prefHeight="450.0" prefWidth="854.0" style="-fx-background-color: #4a4a4a;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EldersController">
+<AnchorPane prefHeight="450.0" prefWidth="854.0" style="-fx-background-color: #4a4a4a;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CaretakeController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="163.0" text="Ellátottak" textFill="WHITE">
          <font>
@@ -20,7 +20,7 @@
       <TextField fx:id="tfElderName" layoutX="14.0" layoutY="106.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" AnchorPane.leftAnchor="14.0" />
       <DatePicker fx:id="dpDate" editable="false" layoutX="14.0" layoutY="158.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" AnchorPane.leftAnchor="14.0" />
       <Button layoutX="554.0" layoutY="158.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAdd" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" text="Hozzáadás" textFill="WHITE" AnchorPane.leftAnchor="554.0" />
-      <TableView fx:id="elders" layoutX="11.0" layoutY="294.0" prefHeight="142.0" prefWidth="821.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="294.0">
+      <TableView fx:id="caretake" layoutX="11.0" layoutY="294.0" prefHeight="142.0" prefWidth="821.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="294.0">
          <columns>
             <TableColumn fx:id="columnID" maxWidth="1500.0" minWidth="-1.0" prefWidth="-1.0" text="ID" />
             <TableColumn fx:id="columnElderName" minWidth="-1.0" prefWidth="-1.0" text="Ellatott neve" />
@@ -29,7 +29,7 @@
             <TableColumn fx:id="columnPrice" minWidth="-1.0" prefWidth="-1.0" text="Ebéd ára" />
             <TableColumn fx:id="columnDate" minWidth="-1.0" prefWidth="-1.0" text="Ellátás dátuma" />
             <TableColumn fx:id="columnCareTime" minWidth="-1.0" prefWidth="-1.0" text="Ellátás ideje" />
-            <TableColumn fx:id="columnTravelTime" minWidth="-1.0" prefWidth="-1.0" text="Utazási idő" />
+            <TableColumn fx:id="columnCareTimeWithoutTravel" minWidth="-1.0" prefWidth="-1.0" text="Ellátás ideje utazás nélkül" />
             <TableColumn fx:id="columnDelete" maxWidth="3000.0" minWidth="-1.0" prefWidth="-1.0" text="Törlés" />
          </columns>
          <columnResizePolicy>
@@ -37,7 +37,6 @@
          </columnResizePolicy>
       </TableView>
       <Button layoutX="14.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" text="Keresés" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
-      <TextField fx:id="tfSearchByElderName" layoutX="165.0" layoutY="259.0" prefHeight="31.0" prefWidth="120.0" promptText="Ellatott neve" AnchorPane.leftAnchor="165.0" />
       <Label layoutX="14.0" layoutY="85.0" prefHeight="21.0" prefWidth="89.0" text="Ellátott neve" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
       <Label layoutX="194.0" layoutY="116.0" prefHeight="21.0" prefWidth="89.0" textFill="WHITE" AnchorPane.leftAnchor="194.0" />
       <Label layoutX="14.0" layoutY="137.0" text="Ellátás dátuma" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
@@ -46,11 +45,28 @@
       <Label layoutX="194.0" layoutY="85.0" prefHeight="21.0" prefWidth="106.0" text="Dolgozó neve" textFill="WHITE" />
       <Label layoutX="554.0" layoutY="85.0" prefHeight="21.0" prefWidth="106.0" text="Ebéd ára" textFill="WHITE" />
       <ComboBox fx:id="cbPrice" editable="true" layoutX="554.0" layoutY="106.0" prefHeight="31.0" prefWidth="150.0" />
-      <Label layoutX="194.0" layoutY="137.0" prefHeight="21.0" prefWidth="150.0" text="Ellátás ideje (pl 13:42)" textFill="WHITE" />
-      <TextField fx:id="tfCareTime" layoutX="194.0" layoutY="158.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
+      <Label layoutX="194.0" layoutY="137.0" prefHeight="21.0" prefWidth="150.0" text="Ellátás ideje" textFill="WHITE" />
+      <TextField fx:id="tfCareTime" layoutX="194.0" layoutY="158.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" promptText="pl 13:42" />
       <ComboBox fx:id="cbEmployeeName" editable="true" layoutX="194.0" layoutY="106.0" prefHeight="31.0" prefWidth="150.0" />
-      <TextField fx:id="tfSearchByEmployeeName" layoutX="284.0" layoutY="259.0" prefHeight="31.0" prefWidth="120.0" promptText="Dolgozó neve" />
-      <TextField fx:id="tfSearchByLunch" layoutX="404.0" layoutY="259.0" prefHeight="31.0" prefWidth="120.0" promptText="Ebéd" />
-      <DatePicker fx:id="dpSearchByDate" editable="false" layoutX="524.0" layoutY="259.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" promptText="Ellátás dátuma" />
+      <TextField fx:id="tfSearchByColumn" layoutX="314.0" layoutY="259.0" prefHeight="31.0" prefWidth="524.0" AnchorPane.leftAnchor="316.0" AnchorPane.rightAnchor="14.0" />
+      <Label layoutX="376.0" layoutY="137.0" prefHeight="21.0" prefWidth="150.0" text="Utazási idő percben" textFill="WHITE" />
+      <TextField fx:id="tfTravelTime" layoutX="376.0" layoutY="158.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" promptText="pl 5" />
+      <ComboBox fx:id="cbSearchByColumn" layoutX="164.0" layoutY="259.0" prefHeight="31.0" prefWidth="150.0" >
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="elderName" />
+               <String fx:value="employeeName" />
+               <String fx:value="lunch" />
+               <String fx:value="price" />
+               <String fx:value="date" />
+               <String fx:value="careTime" />
+               <String fx:value="careTimeWithoutTravel" />
+            </FXCollections>
+         </items>
+         <value>
+            <String fx:value="id"/>
+         </value>
+      </ComboBox>
+
    </children>
 </AnchorPane>
