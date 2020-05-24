@@ -4,14 +4,13 @@ import database.EmployeeRepository;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.LocalDateStringConverter;
 import model.Employees;
+import org.tinylog.Logger;
 
 import java.time.LocalDate;
 
@@ -75,140 +74,140 @@ public class EmployeeController {
     public void initialize() {}
 
     public void initColumn(){
-        columnID.setCellValueFactory(new PropertyValueFactory<Employees, Integer>("id"));
-        columnName.setCellValueFactory(new PropertyValueFactory<Employees, String>("name"));
-        columnGender.setCellValueFactory(new PropertyValueFactory<Employees, String>("gender"));
-        columnCity.setCellValueFactory(new PropertyValueFactory<Employees, String>("city"));
-        columnStreet.setCellValueFactory(new PropertyValueFactory<Employees, String>("street"));
-        columnNumber.setCellValueFactory(new PropertyValueFactory<Employees, String>("number"));
-        columnDateOfBirth.setCellValueFactory(new PropertyValueFactory<Employees, LocalDate>("dateOfBirth"));
-        columnDateOfEmployment.setCellValueFactory(new PropertyValueFactory<Employees, LocalDate>("startOfEmployment"));
+        columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        columnCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        columnStreet.setCellValueFactory(new PropertyValueFactory<>("street"));
+        columnNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
+        columnDateOfBirth.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        columnDateOfEmployment.setCellValueFactory(new PropertyValueFactory<>("startOfEmployment"));
         columnDelete.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 
         editTableColumns();
     }
 
     @FXML
-    public void handleSearch(ActionEvent event) {
-        String selectedName = "%" + tfSearch.getText().trim().toLowerCase() + "%";
-        tfSearch.clear();
-        ObservableList<Employees> data = FXCollections.observableArrayList(EmployeeRepository.findByName(selectedName));
-        employees.setItems(data);
-        initColumn();
+    public void handleSearch() {
+        try {
+            String selectedName = "%" + tfSearch.getText().trim().toLowerCase() + "%";
+            tfSearch.clear();
+            ObservableList<Employees> data = FXCollections.observableArrayList(EmployeeRepository.findByName(selectedName));
+            employees.setItems(data);
+            initColumn();
+        } catch (Exception e){
+            Logger.error("Search by invalid type");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Hiba üzenet");
+            alert.setHeaderText(null);
+            alert.setContentText("Érvénytelen típus adat vagy hibás adatbázis kapcsolat.");
+            alert.showAndWait();
+        }
+
     }
 
     @FXML
-    public void handleAdd(ActionEvent event) {
-        Employees newEmployee = new Employees();
+    public void handleAdd() {
+        try {
+            Employees newEmployee = new Employees();
 
-        newEmployee.setName(tfName.getText().trim());
-        newEmployee.setGender(cbGender.getValue().trim());
-        newEmployee.setCity(tfCity.getText().trim());
-        newEmployee.setStreet(tfStreet.getText().trim());
-        newEmployee.setNumber(tfNumber.getText().trim());
-        newEmployee.setDateOfBirth(dpDateOfBirth.getValue());
-        newEmployee.setStartOfEmployment(dpStartOfEmployment.getValue());
+            newEmployee.setName(tfName.getText().trim());
+            newEmployee.setGender(cbGender.getValue().trim());
+            newEmployee.setCity(tfCity.getText().trim());
+            newEmployee.setStreet(tfStreet.getText().trim());
+            newEmployee.setNumber(tfNumber.getText().trim());
+            newEmployee.setDateOfBirth(dpDateOfBirth.getValue());
+            newEmployee.setStartOfEmployment(dpStartOfEmployment.getValue());
 
-        tfName.clear();
-        cbGender.setValue(null);
-        tfCity.clear();
-        tfStreet.clear();
-        tfNumber.clear();
-        dpDateOfBirth.setValue(null);
-        dpStartOfEmployment.setValue(null);
+            tfName.clear();
+            cbGender.setValue(null);
+            tfCity.clear();
+            tfStreet.clear();
+            tfNumber.clear();
+            dpDateOfBirth.setValue(null);
+            dpStartOfEmployment.setValue(null);
 
-        EmployeeRepository.insertEmployee(newEmployee);
+            EmployeeRepository.insertEmployee(newEmployee);
+        } catch (Exception e){
+            Logger.error("Inserting invalid type");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Hiba üzenet");
+            alert.setHeaderText(null);
+            alert.setContentText("Érvénytelen típus adat vagy hibás adatbázis kapcsolat.");
+            alert.showAndWait();
+        }
+
     }
 
     public void editTableColumns (){
         columnName.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Employees, String> expStringCellEditEvent) {
-                Employees tmp = expStringCellEditEvent.getTableView().getItems().
-                        get(expStringCellEditEvent.getTablePosition().getRow());
-                tmp.setName(expStringCellEditEvent.getNewValue());
-                EmployeeRepository.commitChange(tmp);
+        columnName.setOnEditCommit(expStringCellEditEvent -> {
+            Employees tmp = expStringCellEditEvent.getTableView().getItems().
+                    get(expStringCellEditEvent.getTablePosition().getRow());
+            tmp.setName(expStringCellEditEvent.getNewValue());
+            EmployeeRepository.commitChange(tmp);
 
-            }
         });
 
         columnGender.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnGender.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Employees, String> expStringCellEditEvent) {
-                Employees tmp = expStringCellEditEvent.getTableView().getItems().
-                        get(expStringCellEditEvent.getTablePosition().getRow());
-                tmp.setGender(expStringCellEditEvent.getNewValue());
-                EmployeeRepository.commitChange(tmp);
+        columnGender.setOnEditCommit(expStringCellEditEvent -> {
+            Employees tmp = expStringCellEditEvent.getTableView().getItems().
+                    get(expStringCellEditEvent.getTablePosition().getRow());
+            tmp.setGender(expStringCellEditEvent.getNewValue());
+            EmployeeRepository.commitChange(tmp);
 
-            }
         });
 
         columnCity.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnCity.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Employees, String> expStringCellEditEvent) {
-                Employees tmp = expStringCellEditEvent.getTableView().getItems().
-                        get(expStringCellEditEvent.getTablePosition().getRow());
-                tmp.setCity(expStringCellEditEvent.getNewValue());
-                EmployeeRepository.commitChange(tmp);
+        columnCity.setOnEditCommit(expStringCellEditEvent -> {
+            Employees tmp = expStringCellEditEvent.getTableView().getItems().
+                    get(expStringCellEditEvent.getTablePosition().getRow());
+            tmp.setCity(expStringCellEditEvent.getNewValue());
+            EmployeeRepository.commitChange(tmp);
 
-            }
         });
 
         columnStreet.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnStreet.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Employees, String> expStringCellEditEvent) {
-                Employees tmp = expStringCellEditEvent.getTableView().getItems().
-                        get(expStringCellEditEvent.getTablePosition().getRow());
-                tmp.setStreet(expStringCellEditEvent.getNewValue());
-                EmployeeRepository.commitChange(tmp);
+        columnStreet.setOnEditCommit(expStringCellEditEvent -> {
+            Employees tmp = expStringCellEditEvent.getTableView().getItems().
+                    get(expStringCellEditEvent.getTablePosition().getRow());
+            tmp.setStreet(expStringCellEditEvent.getNewValue());
+            EmployeeRepository.commitChange(tmp);
 
-            }
         });
 
         columnNumber.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnNumber.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Employees, String> expStringCellEditEvent) {
-                Employees tmp = expStringCellEditEvent.getTableView().getItems().
-                        get(expStringCellEditEvent.getTablePosition().getRow());
-                tmp.setNumber(expStringCellEditEvent.getNewValue());
-                EmployeeRepository.commitChange(tmp);
+        columnNumber.setOnEditCommit(expStringCellEditEvent -> {
+            Employees tmp = expStringCellEditEvent.getTableView().getItems().
+                    get(expStringCellEditEvent.getTablePosition().getRow());
+            tmp.setNumber(expStringCellEditEvent.getNewValue());
+            EmployeeRepository.commitChange(tmp);
 
-            }
         });
 
         columnDateOfBirth.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
-        columnDateOfBirth.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, LocalDate>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Employees, LocalDate> expLocalDateCellEditEvent) {
-                Employees tmp = expLocalDateCellEditEvent.getTableView().getItems().
-                        get(expLocalDateCellEditEvent.getTablePosition().getRow());
-                tmp.setDateOfBirth(expLocalDateCellEditEvent.getNewValue());
-                EmployeeRepository.commitChange(tmp);
-            }
+        columnDateOfBirth.setOnEditCommit(expLocalDateCellEditEvent -> {
+            Employees tmp = expLocalDateCellEditEvent.getTableView().getItems().
+                    get(expLocalDateCellEditEvent.getTablePosition().getRow());
+            tmp.setDateOfBirth(expLocalDateCellEditEvent.getNewValue());
+            EmployeeRepository.commitChange(tmp);
         });
 
         columnDateOfEmployment.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
-        columnDateOfEmployment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, LocalDate>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Employees, LocalDate> expLocalDateCellEditEvent) {
-                Employees tmp = expLocalDateCellEditEvent.getTableView().getItems().
-                        get(expLocalDateCellEditEvent.getTablePosition().getRow());
-                tmp.setStartOfEmployment(expLocalDateCellEditEvent.getNewValue());
-                EmployeeRepository.commitChange(tmp);
-            }
+        columnDateOfEmployment.setOnEditCommit(expLocalDateCellEditEvent -> {
+            Employees tmp = expLocalDateCellEditEvent.getTableView().getItems().
+                    get(expLocalDateCellEditEvent.getTablePosition().getRow());
+            tmp.setStartOfEmployment(expLocalDateCellEditEvent.getNewValue());
+            EmployeeRepository.commitChange(tmp);
         });
 
-        columnDelete.setCellFactory(param -> new TableCell<Employees, Employees>(){
+        columnDelete.setCellFactory(param -> new TableCell<>() {
             private final Button deleteButton = new Button("Törölés");
+
             @Override
-            protected void updateItem(Employees employee, boolean empty){
+            protected void updateItem(Employees employee, boolean empty) {
                 super.updateItem(employee, empty);
-                if(employee == null){
+                if (employee == null) {
                     setGraphic(null);
                     return;
                 }
@@ -225,6 +224,11 @@ public class EmployeeController {
             tableView.getItems().remove(employee);
             EmployeeRepository.removeEmployee(employee);
         }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Hiba üzenet");
+            alert.setHeaderText(null);
+            alert.setContentText("A kijelöltt sor törlése sikertelen.");
+            alert.showAndWait();
         }
     }
 }

@@ -23,9 +23,10 @@ public class EldersRepository {
         cq.select(from).where(cb.like(from.get("name"), selectedName));
         try {
             Query q = em.createQuery(cq);
+            Logger.info("Select completed successful");
             return q.getResultList();
         } catch (Exception e) {
-
+            Logger.error("Select failed");
         } finally {
             em.close();
         }
@@ -38,21 +39,23 @@ public class EldersRepository {
             em.getTransaction().begin();
             em.persist(newElder);
             em.getTransaction().commit();
+            Logger.info("Inserting new elder into the database successfully");
         }catch (Exception e){
-
+            Logger.error("Inserting new elder into the database failed");
         }finally {
             em.close();
         }
     }
 
-    public static void  commitChange(Elders change){
+    public static void commitChange(Elders change){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();
             em.merge(change);
             em.getTransaction().commit();
+            Logger.info("Commit success");
         }catch (Exception e){
-            Logger.error("ERROR.");
+            Logger.error("Commit failed");
         }finally {
             em.close();
         }
@@ -64,7 +67,9 @@ public class EldersRepository {
             em.getTransaction().begin();
             em.remove(em.contains(entity) ? entity : em.merge(entity));
             em.getTransaction().commit();
+            Logger.info("Entity removed from the database successfully");
         }catch (Exception e) {
+            Logger.error("Remove failed");
         } finally {
             em.close();
         }

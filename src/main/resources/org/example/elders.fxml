@@ -5,10 +5,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.collections.FXCollections?>
 
 <AnchorPane prefHeight="450.0" prefWidth="854.0" style="-fx-background-color: #4a4a4a;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EldersController">
    <children>
@@ -21,8 +17,8 @@
       <TextField fx:id="tfCity" layoutX="376.0" layoutY="85.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" AnchorPane.leftAnchor="376.0" />
       <TextField fx:id="tfStreet" layoutX="554.0" layoutY="85.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" AnchorPane.leftAnchor="554.0" />
       <TextField fx:id="tfNumber" layoutX="14.0" layoutY="137.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" AnchorPane.leftAnchor="14.0" />
-      <DatePicker fx:id="dpStart" editable="false" layoutX="14.0" layoutY="189.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" AnchorPane.leftAnchor="14.0" />
-      <DatePicker fx:id="dpDateOfBirth" editable="false" layoutX="194.0" layoutY="137.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" AnchorPane.leftAnchor="194.0" />
+      <DatePicker fx:id="dpStart" editable="true" layoutX="14.0" layoutY="189.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" AnchorPane.leftAnchor="14.0" />
+      <DatePicker fx:id="dpDateOfBirth" editable="true" layoutX="194.0" layoutY="137.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" AnchorPane.leftAnchor="194.0" />
       <Button fx:id="btnAdd" layoutX="554.0" layoutY="189.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAdd" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" text="Hozzáadás" textFill="WHITE" AnchorPane.leftAnchor="554.0" />
       <TableView fx:id="elders" layoutX="11.0" layoutY="294.0" prefHeight="92.0" prefWidth="572.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="294.0">
          <columns>

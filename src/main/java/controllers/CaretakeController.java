@@ -1,13 +1,11 @@
 package controllers;
 
 import database.CaretakeRepository;
-import database.EldersRepository;
-import database.EmployeeRepository;
+
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,8 +16,6 @@ import javafx.util.converter.LocalDateStringConverter;
 import javafx.util.converter.LocalTimeStringConverter;
 import model.CareTaking;
 
-import model.Elders;
-import model.Employees;
 import org.tinylog.Logger;
 
 import java.time.LocalDate;
@@ -92,21 +88,21 @@ public class CaretakeController {
     public void initialize() {}
 
     public void initColumn(){
-        columnID.setCellValueFactory(new PropertyValueFactory<CareTaking, Integer>("id"));
-        columnElderName.setCellValueFactory(new PropertyValueFactory<CareTaking, String>("elderName"));
-        columnEmployeeName.setCellValueFactory(new PropertyValueFactory<CareTaking, String>("employeeName"));
-        columnLunch.setCellValueFactory(new PropertyValueFactory<CareTaking, String>("lunch"));
-        columnPrice.setCellValueFactory(new PropertyValueFactory<CareTaking, Integer>("price"));
-        columnDate.setCellValueFactory(new PropertyValueFactory<CareTaking, LocalDate>("date"));
-        columnCareTime.setCellValueFactory(new PropertyValueFactory<CareTaking, LocalTime>("careTime"));
-        columnCareTimeWithoutTravel.setCellValueFactory(new PropertyValueFactory<CareTaking, LocalTime>("travelTime"));
+        columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnElderName.setCellValueFactory(new PropertyValueFactory<>("elderName"));
+        columnEmployeeName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+        columnLunch.setCellValueFactory(new PropertyValueFactory<>("lunch"));
+        columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        columnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        columnCareTime.setCellValueFactory(new PropertyValueFactory<>("careTime"));
+        columnCareTimeWithoutTravel.setCellValueFactory(new PropertyValueFactory<>("travelTime"));
         columnDelete.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 
         editTableColumns();
     }
 
     @FXML
-    public void handleAdd(ActionEvent event) {
+    public void handleAdd() {
         try {
             CareTaking newCareTake = new CareTaking();
 
@@ -129,15 +125,18 @@ public class CaretakeController {
             tfCareTime.clear();
 
             CaretakeRepository.insertCareTake(newCareTake);
-
         } catch (Exception e){
-            Logger.error("Baj van");
+            Logger.error("Inserting invalid type");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Hiba üzenet");
+            alert.setHeaderText(null);
+            alert.setContentText("Érvénytelen típus adat vagy hibás adatbázis kapcsolat.");
+            alert.showAndWait();
         }
-
     }
 
     @FXML
-    void handleSearch(ActionEvent event) {
+    void handleSearch() {
         try {
             ObservableList<CareTaking> data = FXCollections.observableArrayList(
                     CaretakeRepository.findByColumn(cbSearchByColumn.getValue().trim(),
@@ -146,94 +145,72 @@ public class CaretakeController {
             caretake.setItems(data);
             initColumn();
         }catch (Exception e){
-
+            Logger.error("Search by invalid type");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Hiba üzenet");
+            alert.setHeaderText(null);
+            alert.setContentText("Érvénytelen típus adat vagy hibás adatbázis kapcsolat.");
+            alert.showAndWait();
         }
     }
 
     public void editTableColumns (){
         columnElderName.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnElderName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<CareTaking, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<CareTaking, String> expStringCellEditEvent) {
-                CareTaking tmp = expStringCellEditEvent.getTableView().getItems().
-                        get(expStringCellEditEvent.getTablePosition().getRow());
-                tmp.setElderName(expStringCellEditEvent.getNewValue());
-                CaretakeRepository.commitChange(tmp);
-            }
+        columnElderName.setOnEditCommit(expStringCellEditEvent -> {
+            CareTaking tmp = expStringCellEditEvent.getTableView().getItems().
+                    get(expStringCellEditEvent.getTablePosition().getRow());
+            tmp.setElderName(expStringCellEditEvent.getNewValue());
+            CaretakeRepository.commitChange(tmp);
         });
-
         columnEmployeeName.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnEmployeeName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<CareTaking, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<CareTaking, String> expStringCellEditEvent) {
-                CareTaking tmp = expStringCellEditEvent.getTableView().getItems().
-                        get(expStringCellEditEvent.getTablePosition().getRow());
-                tmp.setEmployeeName(expStringCellEditEvent.getNewValue());
-                CaretakeRepository.commitChange(tmp);
-            }
+        columnEmployeeName.setOnEditCommit(expStringCellEditEvent -> {
+            CareTaking tmp = expStringCellEditEvent.getTableView().getItems().
+                    get(expStringCellEditEvent.getTablePosition().getRow());
+            tmp.setEmployeeName(expStringCellEditEvent.getNewValue());
+            CaretakeRepository.commitChange(tmp);
         });
-
         columnLunch.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnLunch.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<CareTaking, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<CareTaking, String> expStringCellEditEvent) {
-                CareTaking tmp = expStringCellEditEvent.getTableView().getItems().
-                        get(expStringCellEditEvent.getTablePosition().getRow());
-                tmp.setLunch(expStringCellEditEvent.getNewValue());
-                CaretakeRepository.commitChange(tmp);
-            }
+        columnLunch.setOnEditCommit(expStringCellEditEvent -> {
+            CareTaking tmp = expStringCellEditEvent.getTableView().getItems().
+                    get(expStringCellEditEvent.getTablePosition().getRow());
+            tmp.setLunch(expStringCellEditEvent.getNewValue());
+            CaretakeRepository.commitChange(tmp);
         });
-
         columnPrice.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        columnPrice.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<CareTaking, Integer>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<CareTaking, Integer> expStringCellEditEvent) {
-                CareTaking tmp = expStringCellEditEvent.getTableView().getItems().
-                        get(expStringCellEditEvent.getTablePosition().getRow());
-                tmp.setPrice(expStringCellEditEvent.getNewValue());
-                CaretakeRepository.commitChange(tmp);
-            }
+        columnPrice.setOnEditCommit(expStringCellEditEvent -> {
+            CareTaking tmp = expStringCellEditEvent.getTableView().getItems().
+                    get(expStringCellEditEvent.getTablePosition().getRow());
+            tmp.setPrice(expStringCellEditEvent.getNewValue());
+            CaretakeRepository.commitChange(tmp);
         });
-
         columnDate.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
-        columnDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<CareTaking, LocalDate>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<CareTaking, LocalDate> expLocalDateCellEditEvent) {
-                CareTaking tmp = expLocalDateCellEditEvent.getTableView().getItems().
-                        get(expLocalDateCellEditEvent.getTablePosition().getRow());
-                tmp.setDate(expLocalDateCellEditEvent.getNewValue());
-                CaretakeRepository.commitChange(tmp);
-            }
+        columnDate.setOnEditCommit(expLocalDateCellEditEvent -> {
+            CareTaking tmp = expLocalDateCellEditEvent.getTableView().getItems().
+                    get(expLocalDateCellEditEvent.getTablePosition().getRow());
+            tmp.setDate(expLocalDateCellEditEvent.getNewValue());
+            CaretakeRepository.commitChange(tmp);
         });
-
         columnCareTime.setCellFactory(TextFieldTableCell.forTableColumn(new LocalTimeStringConverter()));
-        columnCareTime.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<CareTaking, LocalTime>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<CareTaking, LocalTime> expLocalDateCellEditEvent) {
-                CareTaking tmp = expLocalDateCellEditEvent.getTableView().getItems().
-                        get(expLocalDateCellEditEvent.getTablePosition().getRow());
-                tmp.setCareTime(expLocalDateCellEditEvent.getNewValue());
-                CaretakeRepository.commitChange(tmp);
-            }
+        columnCareTime.setOnEditCommit(expLocalDateCellEditEvent -> {
+            CareTaking tmp = expLocalDateCellEditEvent.getTableView().getItems().
+                    get(expLocalDateCellEditEvent.getTablePosition().getRow());
+            tmp.setCareTime(expLocalDateCellEditEvent.getNewValue());
+            CaretakeRepository.commitChange(tmp);
         });
-
         columnCareTimeWithoutTravel.setCellFactory(TextFieldTableCell.forTableColumn(new LocalTimeStringConverter()));
-        columnCareTimeWithoutTravel.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<CareTaking, LocalTime>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<CareTaking, LocalTime> expLocalDateCellEditEvent) {
-                CareTaking tmp = expLocalDateCellEditEvent.getTableView().getItems().
-                        get(expLocalDateCellEditEvent.getTablePosition().getRow());
-                tmp.setCareTimeWithoutTravel(expLocalDateCellEditEvent.getNewValue());
-                CaretakeRepository.commitChange(tmp);
-            }
+        columnCareTimeWithoutTravel.setOnEditCommit(expLocalDateCellEditEvent -> {
+            CareTaking tmp = expLocalDateCellEditEvent.getTableView().getItems().
+                    get(expLocalDateCellEditEvent.getTablePosition().getRow());
+            tmp.setCareTimeWithoutTravel(expLocalDateCellEditEvent.getNewValue());
+            CaretakeRepository.commitChange(tmp);
         });
-
-        columnDelete.setCellFactory(param -> new TableCell<CareTaking, CareTaking>(){
+        columnDelete.setCellFactory(param -> new TableCell<>() {
             private final Button deleteButton = new Button("Törölés");
+
             @Override
-            protected void updateItem(CareTaking caretake, boolean empty){
+            protected void updateItem(CareTaking caretake, boolean empty) {
                 super.updateItem(caretake, empty);
-                if(caretake == null){
+                if (caretake == null) {
                     setGraphic(null);
                     return;
                 }
@@ -250,6 +227,11 @@ public class CaretakeController {
             tableView.getItems().remove(careTake);
             CaretakeRepository.removeCareTake(careTake);
         }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Hiba üzenet");
+            alert.setHeaderText(null);
+            alert.setContentText("A kijelöltt sor törlése sikertelen.");
+            alert.showAndWait();
         }
     }
 

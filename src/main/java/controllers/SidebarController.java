@@ -48,7 +48,7 @@ public class SidebarController {
     }
 
     @FXML
-    void handleClicks(MouseEvent event) throws IOException {
+    void handleClicks(MouseEvent event) {
         if(event.getSource() == btnEmployee){
             loadFXML("employee");
         }
@@ -75,7 +75,7 @@ public class SidebarController {
     }
 
 
-    public void handleFullscreen(MouseEvent event) {
+    public void handleFullscreen() {
         stage = (Stage) window.getScene().getWindow();
         if(stage.isMaximized()) {
             stage.setMaximized(false);
