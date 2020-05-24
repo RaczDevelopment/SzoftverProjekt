@@ -1,6 +1,6 @@
 package database;
 
-import model.Dolgozok;
+import model.Employees;
 import org.tinylog.Logger;
 
 import javax.persistence.EntityManager;
@@ -13,12 +13,12 @@ import java.util.List;
 
 public class EmployeeRepository {
 
-    public static List<Dolgozok> findByName(String selectedName) {
+    public static List<Employees> findByName(String selectedName) {
         EntityManager em = EmfGetter.getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
-        CriteriaQuery<Dolgozok> cq = cb.createQuery(Dolgozok.class);
-        Root<Dolgozok> from = cq.from(Dolgozok.class);
+        CriteriaQuery<Employees> cq = cb.createQuery(Employees.class);
+        Root<Employees> from = cq.from(Employees.class);
 
         cq.select(from).where(cb.like(from.get("name"), selectedName));
         try {
@@ -32,7 +32,7 @@ public class EmployeeRepository {
         return new ArrayList<>();
     }
 
-    public static void insertEmployee(Dolgozok newEmployee){
+    public static void insertEmployee(Employees newEmployee){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();
@@ -45,7 +45,7 @@ public class EmployeeRepository {
         }
     }
 
-    public static void  commitChange(Dolgozok change){
+    public static void  commitChange(Employees change){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();
@@ -58,7 +58,7 @@ public class EmployeeRepository {
         }
     }
 
-    public static void removeEmployee(Dolgozok entity){
+    public static void removeEmployee(Employees entity){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();

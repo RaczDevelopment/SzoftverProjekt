@@ -14,8 +14,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.LocalDateStringConverter;
 
-import model.Dolgozok;
-import model.Gondozottak;
+import model.Employees;
+import model.Elders;
 
 import java.time.LocalDate;
 
@@ -55,58 +55,58 @@ public class EldersController {
     private TextField tfType;
 
     @FXML
-    private TableView<Gondozottak> elders;
+    private TableView<Elders> elders;
 
     @FXML
-    private TableColumn<Gondozottak, Integer> columnID;
+    private TableColumn<Elders, Integer> columnID;
 
     @FXML
-    private TableColumn<Gondozottak, String> columnName;
+    private TableColumn<Elders, String> columnName;
 
     @FXML
-    private TableColumn<Dolgozok, String> columnGender;
+    private TableColumn<Employees, String> columnGender;
 
     @FXML
-    private TableColumn<Gondozottak, String> columnCity;
+    private TableColumn<Elders, String> columnCity;
 
     @FXML
-    private TableColumn<Gondozottak, String> columnStreet;
+    private TableColumn<Elders, String> columnStreet;
 
     @FXML
-    private TableColumn<Gondozottak, String> columnNumber;
+    private TableColumn<Elders, String> columnNumber;
 
     @FXML
-    private TableColumn<Gondozottak, LocalDate> columnDateOfBirth;
+    private TableColumn<Elders, LocalDate> columnDateOfBirth;
 
     @FXML
-    private TableColumn<Gondozottak, String> columnPlaceOfBirth;
+    private TableColumn<Elders, String> columnPlaceOfBirth;
 
     @FXML
-    private TableColumn<Gondozottak, Integer> columnTAJ;
+    private TableColumn<Elders, Integer> columnTAJ;
 
     @FXML
-    private TableColumn<Gondozottak, LocalDate> columnStart;
+    private TableColumn<Elders, LocalDate> columnStart;
 
     @FXML
-    private TableColumn<Gondozottak, String> columnType;
+    private TableColumn<Elders, String> columnType;
 
     @FXML
-    private TableColumn<Gondozottak, Gondozottak> columnDelete;
+    private TableColumn<Elders, Elders> columnDelete;
 
     public void initialize() {}
 
     public void initColumn(){
-        columnID.setCellValueFactory(new PropertyValueFactory<Gondozottak, Integer>("id"));
-        columnName.setCellValueFactory(new PropertyValueFactory<Gondozottak, String>("name"));
-        columnGender.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("gender"));
-        columnCity.setCellValueFactory(new PropertyValueFactory<Gondozottak, String>("city"));
-        columnStreet.setCellValueFactory(new PropertyValueFactory<Gondozottak, String>("street"));
-        columnNumber.setCellValueFactory(new PropertyValueFactory<Gondozottak, String>("number"));
-        columnDateOfBirth.setCellValueFactory(new PropertyValueFactory<Gondozottak, LocalDate>("dateOfBirth"));
-        columnPlaceOfBirth.setCellValueFactory(new PropertyValueFactory<Gondozottak, String>("placeOfBirth"));
-        columnTAJ.setCellValueFactory(new PropertyValueFactory<Gondozottak, Integer>("taj"));
-        columnStart.setCellValueFactory(new PropertyValueFactory<Gondozottak, LocalDate>("start"));
-        columnType.setCellValueFactory(new PropertyValueFactory<Gondozottak, String>("type"));
+        columnID.setCellValueFactory(new PropertyValueFactory<Elders, Integer>("id"));
+        columnName.setCellValueFactory(new PropertyValueFactory<Elders, String>("name"));
+        columnGender.setCellValueFactory(new PropertyValueFactory<Employees, String>("gender"));
+        columnCity.setCellValueFactory(new PropertyValueFactory<Elders, String>("city"));
+        columnStreet.setCellValueFactory(new PropertyValueFactory<Elders, String>("street"));
+        columnNumber.setCellValueFactory(new PropertyValueFactory<Elders, String>("number"));
+        columnDateOfBirth.setCellValueFactory(new PropertyValueFactory<Elders, LocalDate>("dateOfBirth"));
+        columnPlaceOfBirth.setCellValueFactory(new PropertyValueFactory<Elders, String>("placeOfBirth"));
+        columnTAJ.setCellValueFactory(new PropertyValueFactory<Elders, Integer>("taj"));
+        columnStart.setCellValueFactory(new PropertyValueFactory<Elders, LocalDate>("start"));
+        columnType.setCellValueFactory(new PropertyValueFactory<Elders, String>("type"));
         columnDelete.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 
         editTableColumns();
@@ -116,14 +116,14 @@ public class EldersController {
     public void handleSearch(ActionEvent event) {
         String selectedName = "%" + tfSearch.getText().trim().toLowerCase() + "%";
         tfSearch.clear();
-        ObservableList<Gondozottak> data = FXCollections.observableArrayList(EldersRepository.findByName(selectedName));
+        ObservableList<Elders> data = FXCollections.observableArrayList(EldersRepository.findByName(selectedName));
         elders.setItems(data);
         initColumn();
     }
 
     @FXML
     public void handleAdd(ActionEvent event) {
-        Gondozottak newElder = new Gondozottak();
+        Elders newElder = new Elders();
 
         newElder.setName(tfName.getText().trim());
         newElder.setGender(cbGender.getValue().trim());
@@ -152,10 +152,10 @@ public class EldersController {
 
     public void editTableColumns (){
         columnName.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Gondozottak, String>>() {
+        columnName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Elders, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Gondozottak, String> expStringCellEditEvent) {
-                Gondozottak tmp = expStringCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Elders, String> expStringCellEditEvent) {
+                Elders tmp = expStringCellEditEvent.getTableView().getItems().
                         get(expStringCellEditEvent.getTablePosition().getRow());
                 tmp.setName(expStringCellEditEvent.getNewValue());
                 EldersRepository.commitChange(tmp);
@@ -163,10 +163,10 @@ public class EldersController {
         });
 
         columnGender.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnGender.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Dolgozok, String>>() {
+        columnGender.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Dolgozok, String> expStringCellEditEvent) {
-                Dolgozok tmp = expStringCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Employees, String> expStringCellEditEvent) {
+                Employees tmp = expStringCellEditEvent.getTableView().getItems().
                         get(expStringCellEditEvent.getTablePosition().getRow());
                 tmp.setGender(expStringCellEditEvent.getNewValue());
                 EmployeeRepository.commitChange(tmp);
@@ -175,10 +175,10 @@ public class EldersController {
         });
 
         columnCity.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnCity.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Gondozottak, String>>() {
+        columnCity.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Elders, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Gondozottak, String> expStringCellEditEvent) {
-                Gondozottak tmp = expStringCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Elders, String> expStringCellEditEvent) {
+                Elders tmp = expStringCellEditEvent.getTableView().getItems().
                         get(expStringCellEditEvent.getTablePosition().getRow());
                 tmp.setCity(expStringCellEditEvent.getNewValue());
                 EldersRepository.commitChange(tmp);
@@ -186,10 +186,10 @@ public class EldersController {
         });
 
         columnStreet.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnStreet.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Gondozottak, String>>() {
+        columnStreet.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Elders, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Gondozottak, String> expStringCellEditEvent) {
-                Gondozottak tmp = expStringCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Elders, String> expStringCellEditEvent) {
+                Elders tmp = expStringCellEditEvent.getTableView().getItems().
                         get(expStringCellEditEvent.getTablePosition().getRow());
                 tmp.setStreet(expStringCellEditEvent.getNewValue());
                 EldersRepository.commitChange(tmp);
@@ -197,10 +197,10 @@ public class EldersController {
         });
 
         columnNumber.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnNumber.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Gondozottak, String>>() {
+        columnNumber.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Elders, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Gondozottak, String> expStringCellEditEvent) {
-                Gondozottak tmp = expStringCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Elders, String> expStringCellEditEvent) {
+                Elders tmp = expStringCellEditEvent.getTableView().getItems().
                         get(expStringCellEditEvent.getTablePosition().getRow());
                 tmp.setNumber(expStringCellEditEvent.getNewValue());
                 EldersRepository.commitChange(tmp);
@@ -208,10 +208,10 @@ public class EldersController {
         });
 
         columnDateOfBirth.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
-        columnDateOfBirth.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Gondozottak, LocalDate>>() {
+        columnDateOfBirth.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Elders, LocalDate>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Gondozottak, LocalDate> expLocalDateCellEditEvent) {
-                Gondozottak tmp = expLocalDateCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Elders, LocalDate> expLocalDateCellEditEvent) {
+                Elders tmp = expLocalDateCellEditEvent.getTableView().getItems().
                         get(expLocalDateCellEditEvent.getTablePosition().getRow());
                 tmp.setDateOfBirth(expLocalDateCellEditEvent.getNewValue());
                 EldersRepository.commitChange(tmp);
@@ -219,10 +219,10 @@ public class EldersController {
         });
 
         columnPlaceOfBirth.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnPlaceOfBirth.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Gondozottak, String>>() {
+        columnPlaceOfBirth.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Elders, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Gondozottak, String> expStringCellEditEvent) {
-                Gondozottak tmp = expStringCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Elders, String> expStringCellEditEvent) {
+                Elders tmp = expStringCellEditEvent.getTableView().getItems().
                         get(expStringCellEditEvent.getTablePosition().getRow());
                 tmp.setPlaceOfBirth(expStringCellEditEvent.getNewValue());
                 EldersRepository.commitChange(tmp);
@@ -230,10 +230,10 @@ public class EldersController {
         });
 
         columnTAJ.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        columnTAJ.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Gondozottak, Integer>>() {
+        columnTAJ.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Elders, Integer>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Gondozottak, Integer> expStringCellEditEvent) {
-                Gondozottak tmp = expStringCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Elders, Integer> expStringCellEditEvent) {
+                Elders tmp = expStringCellEditEvent.getTableView().getItems().
                         get(expStringCellEditEvent.getTablePosition().getRow());
                 tmp.setTaj(expStringCellEditEvent.getNewValue());
                 EldersRepository.commitChange(tmp);
@@ -241,10 +241,10 @@ public class EldersController {
         });
 
         columnStart.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
-        columnStart.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Gondozottak, LocalDate>>() {
+        columnStart.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Elders, LocalDate>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Gondozottak, LocalDate> expLocalDateCellEditEvent) {
-                Gondozottak tmp = expLocalDateCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Elders, LocalDate> expLocalDateCellEditEvent) {
+                Elders tmp = expLocalDateCellEditEvent.getTableView().getItems().
                         get(expLocalDateCellEditEvent.getTablePosition().getRow());
                 tmp.setStart(expLocalDateCellEditEvent.getNewValue());
                 EldersRepository.commitChange(tmp);
@@ -252,20 +252,20 @@ public class EldersController {
         });
 
         columnType.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnType.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Gondozottak, String>>() {
+        columnType.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Elders, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Gondozottak, String> expStringCellEditEvent) {
-                Gondozottak tmp = expStringCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Elders, String> expStringCellEditEvent) {
+                Elders tmp = expStringCellEditEvent.getTableView().getItems().
                         get(expStringCellEditEvent.getTablePosition().getRow());
                 tmp.setType(expStringCellEditEvent.getNewValue());
                 EldersRepository.commitChange(tmp);
             }
         });
 
-        columnDelete.setCellFactory(param -> new TableCell<Gondozottak,Gondozottak>(){
+        columnDelete.setCellFactory(param -> new TableCell<Elders, Elders>(){
             private final Button deleteButton = new Button("Törölés");
             @Override
-            protected void updateItem(Gondozottak elders, boolean empty){
+            protected void updateItem(Elders elders, boolean empty){
                 super.updateItem(elders, empty);
                 if(elders == null){
                     setGraphic(null);
@@ -279,7 +279,7 @@ public class EldersController {
         elders.setEditable(true);
     }
 
-    private void deleteRow(TableView tableView, Gondozottak elders){
+    private void deleteRow(TableView tableView, Elders elders){
         try {
             tableView.getItems().remove(elders);
             EldersRepository.removeEmployee(elders);

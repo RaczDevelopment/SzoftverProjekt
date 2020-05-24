@@ -1,7 +1,6 @@
 package database;
 
-import model.Dolgozok;
-import model.Gondozottak;
+import model.Elders;
 import org.tinylog.Logger;
 
 import javax.persistence.EntityManager;
@@ -14,12 +13,12 @@ import java.util.List;
 
 public class EldersRepository {
 
-    public static List<Gondozottak> findByName(String selectedName) {
+    public static List<Elders> findByName(String selectedName) {
         EntityManager em = EmfGetter.getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
-        CriteriaQuery<Gondozottak> cq = cb.createQuery(Gondozottak.class);
-        Root<Gondozottak> from = cq.from(Gondozottak.class);
+        CriteriaQuery<Elders> cq = cb.createQuery(Elders.class);
+        Root<Elders> from = cq.from(Elders.class);
 
         cq.select(from).where(cb.like(from.get("name"), selectedName));
         try {
@@ -33,7 +32,7 @@ public class EldersRepository {
         return new ArrayList<>();
     }
 
-    public static void insertElder(Gondozottak newElder){
+    public static void insertElder(Elders newElder){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();
@@ -46,7 +45,7 @@ public class EldersRepository {
         }
     }
 
-    public static void  commitChange(Gondozottak change){
+    public static void  commitChange(Elders change){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();
@@ -59,7 +58,7 @@ public class EldersRepository {
         }
     }
 
-    public static void removeEmployee(Gondozottak entity){
+    public static void removeEmployee(Elders entity){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();

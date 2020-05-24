@@ -31,7 +31,7 @@ public class SidebarController {
     private Button btnElders;
 
     @FXML
-    private Button btnGondozasok;
+    private Button btnCaretake;
 
     @FXML
     private Button btnStatistics;
@@ -55,8 +55,8 @@ public class SidebarController {
         else if(event.getSource() == btnElders){
             loadFXML("elders");
         }
-        else if(event.getSource() == btnGondozasok){
-            loadFXML("gondozasok");
+        else if(event.getSource() == btnCaretake){
+            loadFXML("caretake");
         }
         else if(event.getSource() == btnStatistics){
             loadFXML("statistics");

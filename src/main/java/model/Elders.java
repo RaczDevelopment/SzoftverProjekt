@@ -12,7 +12,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 @Entity
-public class Gondozottak {
+@Table(name = "Gondozottak")
+public class Elders {
 
     @Id
     @Column(name = "ID")

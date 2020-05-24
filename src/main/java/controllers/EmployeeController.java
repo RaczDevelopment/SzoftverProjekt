@@ -11,8 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.LocalDateStringConverter;
-import model.Dolgozok;
-import org.tinylog.Logger;
+import model.Employees;
 
 import java.time.LocalDate;
 
@@ -44,46 +43,46 @@ public class EmployeeController {
     private DatePicker dpStartOfEmployment;
 
     @FXML
-    private TableView<Dolgozok> employees;
+    private TableView<Employees> employees;
 
     @FXML
-    private TableColumn<Dolgozok, Integer> columnID;
+    private TableColumn<Employees, Integer> columnID;
 
     @FXML
-    private TableColumn<Dolgozok, String> columnName;
+    private TableColumn<Employees, String> columnName;
 
     @FXML
-    private TableColumn<Dolgozok, String> columnGender;
+    private TableColumn<Employees, String> columnGender;
 
     @FXML
-    private TableColumn<Dolgozok, String> columnCity;
+    private TableColumn<Employees, String> columnCity;
 
     @FXML
-    private TableColumn<Dolgozok, String> columnStreet;
+    private TableColumn<Employees, String> columnStreet;
 
     @FXML
-    private TableColumn<Dolgozok, String> columnNumber;
+    private TableColumn<Employees, String> columnNumber;
 
     @FXML
-    private TableColumn<Dolgozok, LocalDate> columnDateOfBirth;
+    private TableColumn<Employees, LocalDate> columnDateOfBirth;
 
     @FXML
-    private TableColumn<Dolgozok, LocalDate> columnDateOfEmployment;
+    private TableColumn<Employees, LocalDate> columnDateOfEmployment;
 
     @FXML
-    private TableColumn<Dolgozok, Dolgozok> columnDelete;
+    private TableColumn<Employees, Employees> columnDelete;
 
     public void initialize() {}
 
     public void initColumn(){
-        columnID.setCellValueFactory(new PropertyValueFactory<Dolgozok, Integer>("id"));
-        columnName.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("name"));
-        columnGender.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("gender"));
-        columnCity.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("city"));
-        columnStreet.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("street"));
-        columnNumber.setCellValueFactory(new PropertyValueFactory<Dolgozok, String>("number"));
-        columnDateOfBirth.setCellValueFactory(new PropertyValueFactory<Dolgozok, LocalDate>("dateOfBirth"));
-        columnDateOfEmployment.setCellValueFactory(new PropertyValueFactory<Dolgozok, LocalDate>("startOfEmployment"));
+        columnID.setCellValueFactory(new PropertyValueFactory<Employees, Integer>("id"));
+        columnName.setCellValueFactory(new PropertyValueFactory<Employees, String>("name"));
+        columnGender.setCellValueFactory(new PropertyValueFactory<Employees, String>("gender"));
+        columnCity.setCellValueFactory(new PropertyValueFactory<Employees, String>("city"));
+        columnStreet.setCellValueFactory(new PropertyValueFactory<Employees, String>("street"));
+        columnNumber.setCellValueFactory(new PropertyValueFactory<Employees, String>("number"));
+        columnDateOfBirth.setCellValueFactory(new PropertyValueFactory<Employees, LocalDate>("dateOfBirth"));
+        columnDateOfEmployment.setCellValueFactory(new PropertyValueFactory<Employees, LocalDate>("startOfEmployment"));
         columnDelete.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 
         editTableColumns();
@@ -93,14 +92,14 @@ public class EmployeeController {
     public void handleSearch(ActionEvent event) {
         String selectedName = "%" + tfSearch.getText().trim().toLowerCase() + "%";
         tfSearch.clear();
-        ObservableList<Dolgozok> data = FXCollections.observableArrayList(EmployeeRepository.findByName(selectedName));
+        ObservableList<Employees> data = FXCollections.observableArrayList(EmployeeRepository.findByName(selectedName));
         employees.setItems(data);
         initColumn();
     }
 
     @FXML
     public void handleAdd(ActionEvent event) {
-        Dolgozok newEmployee = new Dolgozok();
+        Employees newEmployee = new Employees();
 
         newEmployee.setName(tfName.getText().trim());
         newEmployee.setGender(cbGender.getValue().trim());
@@ -123,10 +122,10 @@ public class EmployeeController {
 
     public void editTableColumns (){
         columnName.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Dolgozok, String>>() {
+        columnName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Dolgozok, String> expStringCellEditEvent) {
-                Dolgozok tmp = expStringCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Employees, String> expStringCellEditEvent) {
+                Employees tmp = expStringCellEditEvent.getTableView().getItems().
                         get(expStringCellEditEvent.getTablePosition().getRow());
                 tmp.setName(expStringCellEditEvent.getNewValue());
                 EmployeeRepository.commitChange(tmp);
@@ -135,10 +134,10 @@ public class EmployeeController {
         });
 
         columnGender.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnGender.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Dolgozok, String>>() {
+        columnGender.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Dolgozok, String> expStringCellEditEvent) {
-                Dolgozok tmp = expStringCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Employees, String> expStringCellEditEvent) {
+                Employees tmp = expStringCellEditEvent.getTableView().getItems().
                         get(expStringCellEditEvent.getTablePosition().getRow());
                 tmp.setGender(expStringCellEditEvent.getNewValue());
                 EmployeeRepository.commitChange(tmp);
@@ -147,10 +146,10 @@ public class EmployeeController {
         });
 
         columnCity.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnCity.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Dolgozok, String>>() {
+        columnCity.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Dolgozok, String> expStringCellEditEvent) {
-                Dolgozok tmp = expStringCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Employees, String> expStringCellEditEvent) {
+                Employees tmp = expStringCellEditEvent.getTableView().getItems().
                         get(expStringCellEditEvent.getTablePosition().getRow());
                 tmp.setCity(expStringCellEditEvent.getNewValue());
                 EmployeeRepository.commitChange(tmp);
@@ -159,10 +158,10 @@ public class EmployeeController {
         });
 
         columnStreet.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnStreet.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Dolgozok, String>>() {
+        columnStreet.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Dolgozok, String> expStringCellEditEvent) {
-                Dolgozok tmp = expStringCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Employees, String> expStringCellEditEvent) {
+                Employees tmp = expStringCellEditEvent.getTableView().getItems().
                         get(expStringCellEditEvent.getTablePosition().getRow());
                 tmp.setStreet(expStringCellEditEvent.getNewValue());
                 EmployeeRepository.commitChange(tmp);
@@ -171,10 +170,10 @@ public class EmployeeController {
         });
 
         columnNumber.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnNumber.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Dolgozok, String>>() {
+        columnNumber.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Dolgozok, String> expStringCellEditEvent) {
-                Dolgozok tmp = expStringCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Employees, String> expStringCellEditEvent) {
+                Employees tmp = expStringCellEditEvent.getTableView().getItems().
                         get(expStringCellEditEvent.getTablePosition().getRow());
                 tmp.setNumber(expStringCellEditEvent.getNewValue());
                 EmployeeRepository.commitChange(tmp);
@@ -183,10 +182,10 @@ public class EmployeeController {
         });
 
         columnDateOfBirth.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
-        columnDateOfBirth.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Dolgozok, LocalDate>>() {
+        columnDateOfBirth.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, LocalDate>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Dolgozok, LocalDate> expLocalDateCellEditEvent) {
-                Dolgozok tmp = expLocalDateCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Employees, LocalDate> expLocalDateCellEditEvent) {
+                Employees tmp = expLocalDateCellEditEvent.getTableView().getItems().
                         get(expLocalDateCellEditEvent.getTablePosition().getRow());
                 tmp.setDateOfBirth(expLocalDateCellEditEvent.getNewValue());
                 EmployeeRepository.commitChange(tmp);
@@ -194,20 +193,20 @@ public class EmployeeController {
         });
 
         columnDateOfEmployment.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
-        columnDateOfEmployment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Dolgozok, LocalDate>>() {
+        columnDateOfEmployment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employees, LocalDate>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Dolgozok, LocalDate> expLocalDateCellEditEvent) {
-                Dolgozok tmp = expLocalDateCellEditEvent.getTableView().getItems().
+            public void handle(TableColumn.CellEditEvent<Employees, LocalDate> expLocalDateCellEditEvent) {
+                Employees tmp = expLocalDateCellEditEvent.getTableView().getItems().
                         get(expLocalDateCellEditEvent.getTablePosition().getRow());
                 tmp.setStartOfEmployment(expLocalDateCellEditEvent.getNewValue());
                 EmployeeRepository.commitChange(tmp);
             }
         });
 
-        columnDelete.setCellFactory(param -> new TableCell<Dolgozok,Dolgozok>(){
+        columnDelete.setCellFactory(param -> new TableCell<Employees, Employees>(){
             private final Button deleteButton = new Button("Törölés");
             @Override
-            protected void updateItem(Dolgozok employee, boolean empty){
+            protected void updateItem(Employees employee, boolean empty){
                 super.updateItem(employee, empty);
                 if(employee == null){
                     setGraphic(null);
@@ -221,7 +220,7 @@ public class EmployeeController {
         employees.setEditable(true);
     }
 
-    private void deleteRow(TableView tableView,Dolgozok employee){
+    private void deleteRow(TableView tableView, Employees employee){
         try {
             tableView.getItems().remove(employee);
             EmployeeRepository.removeEmployee(employee);

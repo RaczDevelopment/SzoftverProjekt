@@ -12,7 +12,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Data
 @Entity
-public class Gondozasok {
+@Table(name = "Gondozasok")
+public class CareTaking {
 
     @Id
     @Column(name = "ID")
@@ -31,8 +32,8 @@ public class Gondozasok {
     @Column(name = "Datum")
     private LocalDate date;
 
-    @Column(name = "Utazasi_Ido")
-    private LocalTime travelTime;
+    @Column(name = "Utazasi_Ido_Nelkul")
+    private LocalTime careTimeWithoutTravel;
 
     @Column(name = "Gondozasi_Ido")
     private LocalTime careTime;
@@ -60,9 +61,9 @@ public class Gondozasok {
 
     public void setDate(LocalDate date) { this.date = date; }
 
-    public LocalTime getTravelTime() { return travelTime; }
+    public LocalTime getTravelTime() { return careTimeWithoutTravel; }
 
-    public void setTravelTime(LocalTime travelTime) { this.travelTime = travelTime; }
+    public void setTravelTime(LocalTime travelTime) { this.careTimeWithoutTravel = travelTime; }
 
     public LocalTime getCareTime() { return careTime; }
 

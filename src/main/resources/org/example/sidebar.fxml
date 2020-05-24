@@ -20,7 +20,7 @@
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <Button fx:id="btnGondozasok" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="54.0" prefWidth="306.0" stylesheets="@../../css/style.css" text="Gondozások" textFill="WHITE">
+            <Button fx:id="btnCaretake" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="54.0" prefWidth="306.0" stylesheets="@../../css/style.css" text="Gondozások" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font></Button>
