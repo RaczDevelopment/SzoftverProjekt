@@ -1,5 +1,18 @@
 .button{
     -fx-background-color: #3b3b3b;
+    -fx-background-radius: 0;
+}
+
+.text-field{
+    -fx-background-radius: 0;
+}
+
+.combo-box{
+    -fx-background-radius: 0;
+}
+
+.date-picker{
+    -fx-background-radius: 0;
 }
 
 .button:hover{

@@ -13,8 +13,8 @@
             <Font size="34.0" />
          </font>
       </Label>
-      <TextField fx:id="tfElderName" layoutX="14.0" layoutY="106.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" AnchorPane.leftAnchor="14.0" />
-      <DatePicker fx:id="dpDate" layoutX="14.0" layoutY="158.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" AnchorPane.leftAnchor="14.0" />
+      <TextField fx:id="tfElderName" layoutX="14.0" layoutY="106.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" AnchorPane.leftAnchor="14.0" />
+      <DatePicker fx:id="dpDate" layoutX="14.0" layoutY="158.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" AnchorPane.leftAnchor="14.0" />
       <Button layoutX="554.0" layoutY="158.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAdd" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" text="Hozzáadás" textFill="WHITE" AnchorPane.leftAnchor="554.0" />
       <TableView fx:id="caretake" layoutX="11.0" layoutY="294.0" prefHeight="142.0" prefWidth="821.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="294.0">
          <columns>
@@ -36,18 +36,18 @@
       <Label layoutX="14.0" layoutY="85.0" prefHeight="21.0" prefWidth="89.0" text="Ellátott neve" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
       <Label layoutX="194.0" layoutY="116.0" prefHeight="21.0" prefWidth="89.0" textFill="WHITE" AnchorPane.leftAnchor="194.0" />
       <Label layoutX="14.0" layoutY="137.0" text="Ellátás dátuma" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
-      <ComboBox fx:id="cbLunch" editable="true" layoutX="376.0" layoutY="106.0" prefHeight="31.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbLunch" editable="true" layoutX="376.0" layoutY="106.0" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" />
       <Label layoutX="376.0" layoutY="85.0" prefHeight="21.0" prefWidth="106.0" text="Ebéd" textFill="WHITE" />
       <Label layoutX="194.0" layoutY="85.0" prefHeight="21.0" prefWidth="106.0" text="Dolgozó neve" textFill="WHITE" />
       <Label layoutX="554.0" layoutY="85.0" prefHeight="21.0" prefWidth="106.0" text="Ebéd ára" textFill="WHITE" />
-      <ComboBox fx:id="cbPrice" editable="true" layoutX="554.0" layoutY="106.0" prefHeight="31.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbPrice" editable="true" layoutX="554.0" layoutY="106.0" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" />
       <Label layoutX="194.0" layoutY="137.0" prefHeight="21.0" prefWidth="150.0" text="Ellátás ideje" textFill="WHITE" />
-      <TextField fx:id="tfCareTime" layoutX="194.0" layoutY="158.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" promptText="pl 13:42" />
-      <ComboBox fx:id="cbEmployeeName" editable="true" layoutX="194.0" layoutY="106.0" prefHeight="31.0" prefWidth="150.0" />
-      <TextField fx:id="tfSearchByColumn" layoutX="314.0" layoutY="259.0" prefHeight="31.0" prefWidth="524.0" AnchorPane.leftAnchor="316.0" AnchorPane.rightAnchor="14.0" />
+      <TextField fx:id="tfCareTime" layoutX="194.0" layoutY="158.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" promptText="pl 13:42" stylesheets="@../../css/style.css" />
+      <ComboBox fx:id="cbEmployeeName" editable="true" layoutX="194.0" layoutY="106.0" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" />
+      <TextField fx:id="tfSearchByColumn" layoutX="314.0" layoutY="259.0" prefHeight="31.0" prefWidth="524.0" stylesheets="@../../css/style.css" AnchorPane.leftAnchor="316.0" AnchorPane.rightAnchor="14.0" />
       <Label layoutX="376.0" layoutY="137.0" prefHeight="21.0" prefWidth="150.0" text="Utazási idő percben" textFill="WHITE" />
-      <TextField fx:id="tfTravelTime" layoutX="376.0" layoutY="158.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" promptText="pl 5" />
-      <ComboBox fx:id="cbSearchByColumn" layoutX="164.0" layoutY="259.0" prefHeight="31.0" prefWidth="150.0">
+      <TextField fx:id="tfTravelTime" layoutX="376.0" layoutY="158.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" promptText="pl 5" stylesheets="@../../css/style.css" />
+      <ComboBox fx:id="cbSearchByColumn" layoutX="164.0" layoutY="259.0" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="elderName" />

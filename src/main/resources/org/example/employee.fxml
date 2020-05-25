@@ -7,15 +7,15 @@
 <?import javafx.scene.text.*?>
 <?import javafx.collections.FXCollections?>
 
-<AnchorPane style="-fx-background-color: #4a4a4a;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EmployeeController">
+<AnchorPane style="-fx-background-color: #4a4a4a;" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EmployeeController">
     <children>
-        <TextField fx:id="tfName" layoutX="14.0" layoutY="116.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
-        <TextField fx:id="tfCity" layoutX="378.0" layoutY="116.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
-        <TextField fx:id="tfStreet" layoutX="556.0" layoutY="116.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
-        <TextField fx:id="tfNumber" layoutX="14.0" layoutY="182.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
-        <DatePicker fx:id="dpStartOfEmployment" editable="false" layoutX="378.0" layoutY="182.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
-        <DatePicker fx:id="dpDateOfBirth" editable="false" layoutX="196.0" layoutY="182.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
-        <Button layoutX="550.0" layoutY="182.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAdd" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" text="Hozzáadás" textFill="WHITE" />
+        <TextField fx:id="tfName" layoutX="14.0" layoutY="104.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
+        <TextField fx:id="tfCity" layoutX="378.0" layoutY="104.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
+        <TextField fx:id="tfStreet" layoutX="550.0" layoutY="104.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
+        <TextField fx:id="tfNumber" layoutX="14.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
+        <DatePicker fx:id="dpStartOfEmployment" editable="false" layoutX="378.0" layoutY="156.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
+        <DatePicker fx:id="dpDateOfBirth" editable="false" layoutX="196.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="150.0" />
+        <Button layoutX="550.0" layoutY="156.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAdd" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" text="Hozzáadás" textFill="WHITE" />
         <Label layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="316.0" text="Dolgozók" textFill="WHITE">
             <font>
                 <Font size="34.0" />
@@ -39,13 +39,13 @@
         </TableView>
         <Button layoutX="14.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="31.0" prefWidth="150.0" stylesheets="@../../css/style.css" text="Keresés" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
         <TextField fx:id="tfSearch" layoutX="165.0" layoutY="259.0" prefHeight="31.0" prefWidth="521.0" promptText="Adjon meg egy nevet" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="14.0" />
-        <Label layoutX="14.0" layoutY="95.0" prefHeight="21.0" prefWidth="27.0" text="Név" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
-        <Label layoutX="378.0" layoutY="95.0" prefHeight="21.0" prefWidth="70.0" text="Város" textFill="WHITE" AnchorPane.leftAnchor="378.0" />
-        <Label layoutX="556.0" layoutY="95.0" text="Utca" textFill="WHITE" AnchorPane.leftAnchor="556.0" />
-        <Label layoutX="14.0" layoutY="161.0" text="Házszám" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
-        <Label layoutX="196.0" layoutY="161.0" prefHeight="21.0" prefWidth="89.0" text="Születési idő" textFill="WHITE" AnchorPane.leftAnchor="196.0" />
-        <Label layoutX="378.0" layoutY="161.0" text="Foglalkoztatás kezd." textFill="WHITE" AnchorPane.leftAnchor="378.0" />
-        <ComboBox fx:id="cbGender" editable="true" layoutX="196.0" layoutY="116.0" prefHeight="31.0" prefWidth="150.0">
+        <Label layoutX="14.0" layoutY="83.0" prefHeight="4.0" prefWidth="27.0" text="Név" textFill="WHITE" />
+        <Label layoutX="378.0" layoutY="83.0" prefHeight="21.0" prefWidth="70.0" text="Város" textFill="WHITE" />
+        <Label layoutX="556.0" layoutY="83.0" text="Utca" textFill="WHITE" />
+        <Label layoutX="14.0" layoutY="134.0" prefHeight="15.0" prefWidth="59.0" text="Házszám" textFill="WHITE" />
+        <Label layoutX="196.0" layoutY="134.0" prefHeight="21.0" prefWidth="89.0" text="Születési idő" textFill="WHITE" />
+        <Label layoutX="378.0" layoutY="135.0" text="Foglalkoztatás kezd." textFill="WHITE" />
+        <ComboBox fx:id="cbGender" editable="true" layoutX="196.0" layoutY="104.0" prefHeight="31.0" prefWidth="150.0">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Férfi" />
@@ -53,6 +53,6 @@
                 </FXCollections>
             </items>
         </ComboBox>
-        <Label layoutX="196.0" layoutY="95.0" text="Nem" textFill="WHITE" />
+        <Label layoutX="196.0" layoutY="83.0" text="Nem" textFill="WHITE" />
     </children>
 </AnchorPane>
