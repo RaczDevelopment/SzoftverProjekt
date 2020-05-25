@@ -136,7 +136,7 @@ public class CaretakeController {
     }
 
     @FXML
-    void handleSearch() {
+    public void handleSearch() {
         try {
             ObservableList<CareTaking> data = FXCollections.observableArrayList(
                     CaretakeRepository.findByColumn(cbSearchByColumn.getValue().trim(),

@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EmployeeController">
+
+<AnchorPane prefHeight="396.0" prefWidth="788.0" style="-fx-background-color: #4a4a4a;" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatisticsController">
    <children>
-      <Label text="Statisztikak">
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="44.0" prefWidth="208.0" text="Statisztikák" textFill="WHITE">
          <font>
-            <Font size="28.0" />
+            <Font size="34.0" />
          </font>
       </Label>
+      <TableView fx:id="statistics" layoutX="458.0" layoutY="14.0" prefHeight="368.0" prefWidth="300.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+        <columns>
+          <TableColumn fx:id="columnElderName" prefWidth="109.0" text="Ellátot neve" />
+          <TableColumn fx:id="columnSum" prefWidth="90.0" text="Összeg" />
+            <TableColumn fx:id="columnPercentage" prefWidth="75.0" text="Százalékosan" />
+        </columns>
+          <columnResizePolicy>
+              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+          </columnResizePolicy>
+      </TableView>
+      <DatePicker fx:id="dpFromWhatTime" layoutX="14.0" layoutY="88.0" prefHeight="31.0" prefWidth="150.0" />
+      <DatePicker fx:id="dpHowLong" layoutX="188.0" layoutY="88.0" prefHeight="31.0" prefWidth="150.0" />
+      <Label layoutX="14.0" layoutY="67.0" prefHeight="21.0" prefWidth="64.0" text="Mettől" textFill="WHITE" />
+      <Label layoutX="188.0" layoutY="67.0" text="Meddig" textFill="WHITE" />
+      <Label layoutX="173.0" layoutY="93.0" prefHeight="21.0" prefWidth="4.0" text="-" textFill="WHITE" />
+      <Button layoutX="347.0" layoutY="88.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="31.0" prefWidth="72.0" text="Keresés" textFill="WHITE" />
+      <PieChart fx:id="pcStatistic" animated="false" layoutX="14.0" layoutY="213.0" prefHeight="169.0" prefWidth="326.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="448.0" AnchorPane.topAnchor="213.0" stylesheets="@../../css/style.css" />
    </children>
 </AnchorPane>

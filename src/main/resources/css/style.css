@@ -18,3 +18,7 @@
 .button:hover{
     -fx-background-color: #2e2e2e;
 }
+
+.chart-pie-label{
+    -fx-fill: #ffffff;
+}
