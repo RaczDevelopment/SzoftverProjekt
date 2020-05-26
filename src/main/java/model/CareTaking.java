@@ -8,6 +8,12 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Model of an Employee. It contains the Elder name,
+ * Employee name, where do the elder get lunch,
+ * the price of lunch, date of care taking, care time
+ * with and without travel time.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

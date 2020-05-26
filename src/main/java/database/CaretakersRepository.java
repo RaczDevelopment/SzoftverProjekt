@@ -16,23 +16,18 @@ import java.time.format.DateTimeFormatter;
 
 import java.util.*;
 
-public class CaretakeRepository {
+/**
+ * This contains the database operations for the CaretakeController.
+ */
+public class CaretakersRepository {
 
-    public static void insertCareTake(CareTaking newCareTake){
-        EntityManager em = EmfGetter.getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(newCareTake);
-            em.getTransaction().commit();
-            Logger.info("Inserting new caretake into the database successfully");
-        }catch (Exception e){
-            Logger.error("Inserting new caretake into the database failed");
-        }finally {
-            em.close();
-        }
-    }
-
-    public static List<CareTaking> findByColumn(String selectedColumn, String entity) {
+    /**
+     * This find rows by selectedColumn in the Caretaking table.
+     * @param selectedColumn
+     * @param entity
+     * @return a list of CareTaking
+     */
+    public List<CareTaking> findByColumn(String selectedColumn, String entity) {
         EntityManager em = EmfGetter.getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
@@ -68,7 +63,29 @@ public class CaretakeRepository {
         return new ArrayList<>();
     }
 
-    public static void commitChange(CareTaking change){
+    /**
+     * Insert new caretake in the CareTaking table.
+     * @param newCareTake
+     */
+    public void insertCareTake(CareTaking newCareTake){
+        EntityManager em = EmfGetter.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(newCareTake);
+            em.getTransaction().commit();
+            Logger.info("Inserting new caretake into the database successfully");
+        }catch (Exception e){
+            Logger.error("Inserting new caretake into the database failed");
+        }finally {
+            em.close();
+        }
+    }
+
+    /**
+     * Allows you to change the data in the Caretaking table cells.
+     * @param change
+     */
+    public void commitChange(CareTaking change){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();
@@ -81,7 +98,11 @@ public class CaretakeRepository {
         }
     }
 
-    public static void removeCareTake(CareTaking entity){
+    /**
+     * Remove Caretake from the table.
+     * @param entity
+     */
+    public void removeCareTake(CareTaking entity){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();
@@ -94,5 +115,4 @@ public class CaretakeRepository {
             em.close();
         }
     }
-
 }

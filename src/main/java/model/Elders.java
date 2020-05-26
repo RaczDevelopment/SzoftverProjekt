@@ -7,7 +7,12 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-
+/**
+ * Model of an Elder. It contains the name,
+ * gender, city, street, house number,
+ * Birth date, starting date, TAJ,
+ * Birthplace and type of supply.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

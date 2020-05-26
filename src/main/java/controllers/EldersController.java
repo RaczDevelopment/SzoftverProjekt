@@ -92,9 +92,9 @@ public class EldersController {
     @FXML
     private TableColumn<Elders, Elders> columnDelete;
 
-    public void initialize() {}
+    private EldersRepository eldersRepository = new EldersRepository();
 
-    public void initColumn(){
+    private void initColumn(){
         columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
@@ -112,11 +112,11 @@ public class EldersController {
     }
 
     @FXML
-    public void handleSearch() {
+    private void handleSearch() {
         try{
             String selectedName = "%" + tfSearch.getText().trim().toLowerCase() + "%";
             tfSearch.clear();
-            ObservableList<Elders> data = FXCollections.observableArrayList(EldersRepository.findByName(selectedName));
+            ObservableList<Elders> data = FXCollections.observableArrayList(eldersRepository.findByName(selectedName));
             elders.setItems(data);
             initColumn();
         } catch (Exception e){
@@ -130,7 +130,7 @@ public class EldersController {
     }
 
     @FXML
-    public void handleAdd() {
+    private void handleAdd() {
         try {
             Elders newElder = new Elders();
 
@@ -156,7 +156,7 @@ public class EldersController {
             dpStart.setValue(null);
             tfType.clear();
 
-            EldersRepository.insertElder(newElder);
+            eldersRepository.insertElder(newElder);
         } catch (Exception e){
             Logger.error("Inserting invalid type");
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -167,13 +167,13 @@ public class EldersController {
         }
     }
 
-    public void editTableColumns (){
+    private void editTableColumns (){
         columnName.setCellFactory(TextFieldTableCell.forTableColumn());
         columnName.setOnEditCommit(expStringCellEditEvent -> {
             Elders tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setName(expStringCellEditEvent.getNewValue());
-            EldersRepository.commitChange(tmp);
+            eldersRepository.commitChange(tmp);
         });
 
         columnGender.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -181,7 +181,7 @@ public class EldersController {
             Elders tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setGender(expStringCellEditEvent.getNewValue());
-            EldersRepository.commitChange(tmp);
+            eldersRepository.commitChange(tmp);
 
         });
 
@@ -190,7 +190,7 @@ public class EldersController {
             Elders tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setCity(expStringCellEditEvent.getNewValue());
-            EldersRepository.commitChange(tmp);
+            eldersRepository.commitChange(tmp);
         });
 
         columnStreet.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -198,7 +198,7 @@ public class EldersController {
             Elders tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setStreet(expStringCellEditEvent.getNewValue());
-            EldersRepository.commitChange(tmp);
+            eldersRepository.commitChange(tmp);
         });
 
         columnNumber.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -206,7 +206,7 @@ public class EldersController {
             Elders tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setNumber(expStringCellEditEvent.getNewValue());
-            EldersRepository.commitChange(tmp);
+            eldersRepository.commitChange(tmp);
         });
 
         columnDateOfBirth.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
@@ -214,7 +214,7 @@ public class EldersController {
             Elders tmp = expLocalDateCellEditEvent.getTableView().getItems().
                     get(expLocalDateCellEditEvent.getTablePosition().getRow());
             tmp.setDateOfBirth(expLocalDateCellEditEvent.getNewValue());
-            EldersRepository.commitChange(tmp);
+            eldersRepository.commitChange(tmp);
         });
 
         columnPlaceOfBirth.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -222,7 +222,7 @@ public class EldersController {
             Elders tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setPlaceOfBirth(expStringCellEditEvent.getNewValue());
-            EldersRepository.commitChange(tmp);
+            eldersRepository.commitChange(tmp);
         });
 
         columnTAJ.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
@@ -230,7 +230,7 @@ public class EldersController {
             Elders tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setTaj(expStringCellEditEvent.getNewValue());
-            EldersRepository.commitChange(tmp);
+            eldersRepository.commitChange(tmp);
         });
 
         columnStart.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
@@ -238,7 +238,7 @@ public class EldersController {
             Elders tmp = expLocalDateCellEditEvent.getTableView().getItems().
                     get(expLocalDateCellEditEvent.getTablePosition().getRow());
             tmp.setStart(expLocalDateCellEditEvent.getNewValue());
-            EldersRepository.commitChange(tmp);
+            eldersRepository.commitChange(tmp);
         });
 
         columnType.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -246,7 +246,7 @@ public class EldersController {
             Elders tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setType(expStringCellEditEvent.getNewValue());
-            EldersRepository.commitChange(tmp);
+            eldersRepository.commitChange(tmp);
         });
 
         columnDelete.setCellFactory(param -> new TableCell<>() {
@@ -270,7 +270,7 @@ public class EldersController {
     private void deleteRow(TableView tableView, Elders elders){
         try {
             tableView.getItems().remove(elders);
-            EldersRepository.removeEmployee(elders);
+            eldersRepository.removeEmployee(elders);
         }catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Hiba üzenet");

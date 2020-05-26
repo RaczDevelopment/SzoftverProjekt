@@ -1,25 +1,28 @@
 package controllers;
 
-import database.CaretakeRepository;
-import database.LogicRepository;
-import javafx.beans.property.ReadOnlyObjectWrapper;
+import database.StatisticsRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import logic.Logic;
 import model.Statistics;
 
 import org.tinylog.Logger;
 
-import static logic.Logic.paymentPerPerson;
-
 public class StatisticsController {
+    @FXML
+    private Label lblSumElder;
+
+    @FXML
+    private Label lblSumEmployee;
+
+    @FXML
+    private PieChart pcStatistic;
+
     @FXML
     private DatePicker dpFromWhatTime;
 
@@ -38,15 +41,14 @@ public class StatisticsController {
     @FXML
     private TableColumn<Statistics, Double> columnPercentage;
 
-    @FXML
-    private PieChart pcStatistic;
+    private StatisticsRepository statisticsRepository = new StatisticsRepository();
 
-
-
-    public void initialize() {}
+    public void initialize(){
+        lblSumElder.setText(statisticsRepository.sumElder());
+        lblSumEmployee.setText(statisticsRepository.sumEmployee());
+    }
 
     public void initColumn(){
-
         columnElderName.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnSum.setCellValueFactory(new PropertyValueFactory<>("sum"));
         columnPercentage.setCellValueFactory(new PropertyValueFactory<>("percentage"));
@@ -54,7 +56,8 @@ public class StatisticsController {
 
     public void handleSearch() {
         try {
-            ObservableList<Statistics> data = FXCollections.observableArrayList(paymentPerPerson(dpFromWhatTime.getValue(),dpHowLong.getValue()));
+            Logic logic = new Logic(statisticsRepository.findPersons(dpFromWhatTime.getValue(),dpHowLong.getValue()));
+            ObservableList<Statistics> data = FXCollections.observableArrayList(logic.paymentPerPerson());
             pcStatistic.getData().clear();
             for(Statistics a : data){
                 PieChart.Data tmp = new PieChart.Data(

@@ -11,9 +11,17 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This contains the database operations for the EldersController.
+ */
 public class EldersRepository {
 
-    public static List<Elders> findByName(String selectedName) {
+    /**
+     * This find rows by name in the Employees table.
+     * @param selectedName
+     * @return a list of Elders
+     */
+    public List<Elders> findByName(String selectedName) {
         EntityManager em = EmfGetter.getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
@@ -33,7 +41,11 @@ public class EldersRepository {
         return new ArrayList<>();
     }
 
-    public static void insertElder(Elders newElder){
+    /**
+     * Insert new elder in the table.
+     * @param newElder
+     */
+    public void insertElder(Elders newElder){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();
@@ -47,7 +59,11 @@ public class EldersRepository {
         }
     }
 
-    public static void commitChange(Elders change){
+    /**
+     * Allows you to change the data in the Elder table cells.
+     * @param change
+     */
+    public void commitChange(Elders change){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();
@@ -61,7 +77,11 @@ public class EldersRepository {
         }
     }
 
-    public static void removeEmployee(Elders entity){
+    /**
+     * Remove Elder from the table.
+     * @param entity
+     */
+    public void removeEmployee(Elders entity){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();

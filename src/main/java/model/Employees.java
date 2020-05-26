@@ -8,7 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-
+/**
+ * Model of an Employee. It contains the name,
+ * gender, city, street, number of the house,
+ * Birth date and start of employment.
+ */
 @Data
 @Entity
 @Builder

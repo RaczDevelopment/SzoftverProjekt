@@ -11,9 +11,17 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This contains the database operations for the EmployeeController.
+ */
 public class EmployeeRepository {
 
-    public static List<Employees> findByName(String selectedName) {
+    /**
+     * This find rows by name in the Employees table.
+     * @param selectedName
+     * @return a list of Employees
+     */
+    public List<Employees> findByName(String selectedName) {
         EntityManager em = EmfGetter.getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
@@ -33,7 +41,11 @@ public class EmployeeRepository {
         return new ArrayList<>();
     }
 
-    public static void insertEmployee(Employees newEmployee){
+    /**
+     * Insert new employee in the table.
+     * @param newEmployee
+     */
+    public void insertEmployee(Employees newEmployee){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();
@@ -47,7 +59,11 @@ public class EmployeeRepository {
         }
     }
 
-    public static void  commitChange(Employees change){
+    /**
+     * Allows you to change the data in the Employee table cells.
+     * @param change
+     */
+    public void  commitChange(Employees change){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();
@@ -61,7 +77,11 @@ public class EmployeeRepository {
         }
     }
 
-    public static void removeEmployee(Employees entity){
+    /**
+     * Remove Employee from the table.
+     * @param entity
+     */
+    public void removeEmployee(Employees entity){
         EntityManager em = EmfGetter.getEntityManager();
         try {
             em.getTransaction().begin();

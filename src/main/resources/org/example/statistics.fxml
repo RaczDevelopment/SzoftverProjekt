@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
 <?import java.lang.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
 
 <AnchorPane prefHeight="396.0" prefWidth="788.0" style="-fx-background-color: #4a4a4a;" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatisticsController">
    <children>
@@ -30,6 +29,10 @@
       <Label layoutX="188.0" layoutY="67.0" text="Meddig" textFill="WHITE" />
       <Label layoutX="173.0" layoutY="93.0" prefHeight="21.0" prefWidth="4.0" text="-" textFill="WHITE" />
       <Button layoutX="347.0" layoutY="88.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="31.0" prefWidth="72.0" text="Keresés" textFill="WHITE" />
-      <PieChart fx:id="pcStatistic" animated="false" layoutX="14.0" layoutY="213.0" prefHeight="169.0" prefWidth="326.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="448.0" AnchorPane.topAnchor="213.0" stylesheets="@../../css/style.css" />
+      <PieChart fx:id="pcStatistic" animated="false" layoutX="14.0" layoutY="213.0" prefHeight="169.0" prefWidth="326.0" stylesheets="@../../css/style.css" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="448.0" AnchorPane.topAnchor="213.0" />
+      <Label layoutX="14.0" layoutY="139.0" prefHeight="21.0" prefWidth="101.0" text="Összes Ellátott:" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
+      <Label fx:id="lblSumElder" layoutX="118.0" layoutY="139.0" prefHeight="21.0" prefWidth="52.0" textFill="WHITE" AnchorPane.leftAnchor="118.0" />
+      <Label fx:id="lblSumEmployee" layoutX="127.0" layoutY="167.0" prefHeight="21.0" prefWidth="35.0" textFill="WHITE" AnchorPane.leftAnchor="127.0" />
+      <Label layoutX="13.0" layoutY="167.0" prefHeight="21.0" prefWidth="112.0" text="Összes Dolgozó:" textFill="WHITE" AnchorPane.leftAnchor="14.0" />
    </children>
 </AnchorPane>

@@ -40,7 +40,7 @@ public class SidebarController {
 
 
     @FXML
-    void handleClose(MouseEvent event) {
+    private void handleClose(MouseEvent event) {
 
         if(event.getSource() == btnExit){
             System.exit(0);
@@ -48,7 +48,7 @@ public class SidebarController {
     }
 
     @FXML
-    void handleClicks(MouseEvent event) {
+    private void handleClicks(MouseEvent event) {
         if(event.getSource() == btnEmployee){
             loadFXML("employee");
         }

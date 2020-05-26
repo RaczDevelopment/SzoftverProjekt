@@ -1,6 +1,6 @@
 package controllers;
 
-import database.CaretakeRepository;
+import database.CaretakersRepository;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -21,7 +21,6 @@ import org.tinylog.Logger;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-
 
 import static java.time.temporal.ChronoUnit.MINUTES;
 
@@ -85,9 +84,9 @@ public class CaretakeController {
     @FXML
     private TableColumn<CareTaking, CareTaking> columnDelete;
 
-    public void initialize() {}
+    private CaretakersRepository caretakersRepository = new CaretakersRepository();
 
-    public void initColumn(){
+    private void initColumn(){
         columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnElderName.setCellValueFactory(new PropertyValueFactory<>("elderName"));
         columnEmployeeName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
@@ -102,7 +101,7 @@ public class CaretakeController {
     }
 
     @FXML
-    public void handleAdd() {
+    private void handleAdd() {
         try {
             CareTaking newCareTake = new CareTaking();
 
@@ -124,7 +123,7 @@ public class CaretakeController {
             tfElderName.clear();
             tfCareTime.clear();
 
-            CaretakeRepository.insertCareTake(newCareTake);
+            caretakersRepository.insertCareTake(newCareTake);
         } catch (Exception e){
             Logger.error("Inserting invalid type");
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -136,10 +135,10 @@ public class CaretakeController {
     }
 
     @FXML
-    public void handleSearch() {
+    private void handleSearch() {
         try {
             ObservableList<CareTaking> data = FXCollections.observableArrayList(
-                    CaretakeRepository.findByColumn(cbSearchByColumn.getValue().trim(),
+                    caretakersRepository.findByColumn(cbSearchByColumn.getValue().trim(),
                             tfSearchByColumn.getText().trim()));
             tfSearchByColumn.clear();
             caretake.setItems(data);
@@ -154,55 +153,57 @@ public class CaretakeController {
         }
     }
 
-    public void editTableColumns (){
+    private void editTableColumns (){
+
+
         columnElderName.setCellFactory(TextFieldTableCell.forTableColumn());
         columnElderName.setOnEditCommit(expStringCellEditEvent -> {
             CareTaking tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setElderName(expStringCellEditEvent.getNewValue());
-            CaretakeRepository.commitChange(tmp);
+            caretakersRepository.commitChange(tmp);
         });
         columnEmployeeName.setCellFactory(TextFieldTableCell.forTableColumn());
         columnEmployeeName.setOnEditCommit(expStringCellEditEvent -> {
             CareTaking tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setEmployeeName(expStringCellEditEvent.getNewValue());
-            CaretakeRepository.commitChange(tmp);
+            caretakersRepository.commitChange(tmp);
         });
         columnLunch.setCellFactory(TextFieldTableCell.forTableColumn());
         columnLunch.setOnEditCommit(expStringCellEditEvent -> {
             CareTaking tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setLunch(expStringCellEditEvent.getNewValue());
-            CaretakeRepository.commitChange(tmp);
+            caretakersRepository.commitChange(tmp);
         });
         columnPrice.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         columnPrice.setOnEditCommit(expStringCellEditEvent -> {
             CareTaking tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setPrice(expStringCellEditEvent.getNewValue());
-            CaretakeRepository.commitChange(tmp);
+            caretakersRepository.commitChange(tmp);
         });
         columnDate.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
         columnDate.setOnEditCommit(expLocalDateCellEditEvent -> {
             CareTaking tmp = expLocalDateCellEditEvent.getTableView().getItems().
                     get(expLocalDateCellEditEvent.getTablePosition().getRow());
             tmp.setDate(expLocalDateCellEditEvent.getNewValue());
-            CaretakeRepository.commitChange(tmp);
+            caretakersRepository.commitChange(tmp);
         });
         columnCareTime.setCellFactory(TextFieldTableCell.forTableColumn(new LocalTimeStringConverter()));
         columnCareTime.setOnEditCommit(expLocalDateCellEditEvent -> {
             CareTaking tmp = expLocalDateCellEditEvent.getTableView().getItems().
                     get(expLocalDateCellEditEvent.getTablePosition().getRow());
             tmp.setCareTime(expLocalDateCellEditEvent.getNewValue());
-            CaretakeRepository.commitChange(tmp);
+            caretakersRepository.commitChange(tmp);
         });
         columnCareTimeWithoutTravel.setCellFactory(TextFieldTableCell.forTableColumn(new LocalTimeStringConverter()));
         columnCareTimeWithoutTravel.setOnEditCommit(expLocalDateCellEditEvent -> {
             CareTaking tmp = expLocalDateCellEditEvent.getTableView().getItems().
                     get(expLocalDateCellEditEvent.getTablePosition().getRow());
             tmp.setCareTimeWithoutTravel(expLocalDateCellEditEvent.getNewValue());
-            CaretakeRepository.commitChange(tmp);
+            caretakersRepository.commitChange(tmp);
         });
         columnDelete.setCellFactory(param -> new TableCell<>() {
             private final Button deleteButton = new Button("Törölés");
@@ -225,7 +226,7 @@ public class CaretakeController {
     private void deleteRow(TableView tableView, CareTaking careTake){
         try {
             tableView.getItems().remove(careTake);
-            CaretakeRepository.removeCareTake(careTake);
+            caretakersRepository.removeCareTake(careTake);
         }catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Hiba üzenet");

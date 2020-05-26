@@ -71,9 +71,9 @@ public class EmployeeController {
     @FXML
     private TableColumn<Employees, Employees> columnDelete;
 
-    public void initialize() {}
+    private EmployeeRepository employeeRepository = new EmployeeRepository();
 
-    public void initColumn(){
+    private void initColumn(){
         columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
@@ -88,11 +88,11 @@ public class EmployeeController {
     }
 
     @FXML
-    public void handleSearch() {
+    private void handleSearch() {
         try {
             String selectedName = "%" + tfSearch.getText().trim().toLowerCase() + "%";
             tfSearch.clear();
-            ObservableList<Employees> data = FXCollections.observableArrayList(EmployeeRepository.findByName(selectedName));
+            ObservableList<Employees> data = FXCollections.observableArrayList(employeeRepository.findByName(selectedName));
             employees.setItems(data);
             initColumn();
         } catch (Exception e){
@@ -107,7 +107,7 @@ public class EmployeeController {
     }
 
     @FXML
-    public void handleAdd() {
+    private void handleAdd() {
         try {
             Employees newEmployee = new Employees();
 
@@ -127,7 +127,7 @@ public class EmployeeController {
             dpDateOfBirth.setValue(null);
             dpStartOfEmployment.setValue(null);
 
-            EmployeeRepository.insertEmployee(newEmployee);
+            employeeRepository.insertEmployee(newEmployee);
         } catch (Exception e){
             Logger.error("Inserting invalid type");
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -139,13 +139,13 @@ public class EmployeeController {
 
     }
 
-    public void editTableColumns (){
+    private void editTableColumns (){
         columnName.setCellFactory(TextFieldTableCell.forTableColumn());
         columnName.setOnEditCommit(expStringCellEditEvent -> {
             Employees tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setName(expStringCellEditEvent.getNewValue());
-            EmployeeRepository.commitChange(tmp);
+            employeeRepository.commitChange(tmp);
 
         });
 
@@ -154,7 +154,7 @@ public class EmployeeController {
             Employees tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setGender(expStringCellEditEvent.getNewValue());
-            EmployeeRepository.commitChange(tmp);
+            employeeRepository.commitChange(tmp);
 
         });
 
@@ -163,7 +163,7 @@ public class EmployeeController {
             Employees tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setCity(expStringCellEditEvent.getNewValue());
-            EmployeeRepository.commitChange(tmp);
+            employeeRepository.commitChange(tmp);
 
         });
 
@@ -172,7 +172,7 @@ public class EmployeeController {
             Employees tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setStreet(expStringCellEditEvent.getNewValue());
-            EmployeeRepository.commitChange(tmp);
+            employeeRepository.commitChange(tmp);
 
         });
 
@@ -181,7 +181,7 @@ public class EmployeeController {
             Employees tmp = expStringCellEditEvent.getTableView().getItems().
                     get(expStringCellEditEvent.getTablePosition().getRow());
             tmp.setNumber(expStringCellEditEvent.getNewValue());
-            EmployeeRepository.commitChange(tmp);
+            employeeRepository.commitChange(tmp);
 
         });
 
@@ -190,7 +190,7 @@ public class EmployeeController {
             Employees tmp = expLocalDateCellEditEvent.getTableView().getItems().
                     get(expLocalDateCellEditEvent.getTablePosition().getRow());
             tmp.setDateOfBirth(expLocalDateCellEditEvent.getNewValue());
-            EmployeeRepository.commitChange(tmp);
+            employeeRepository.commitChange(tmp);
         });
 
         columnDateOfEmployment.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
@@ -198,7 +198,7 @@ public class EmployeeController {
             Employees tmp = expLocalDateCellEditEvent.getTableView().getItems().
                     get(expLocalDateCellEditEvent.getTablePosition().getRow());
             tmp.setStartOfEmployment(expLocalDateCellEditEvent.getNewValue());
-            EmployeeRepository.commitChange(tmp);
+            employeeRepository.commitChange(tmp);
         });
 
         columnDelete.setCellFactory(param -> new TableCell<>() {
@@ -222,7 +222,7 @@ public class EmployeeController {
     private void deleteRow(TableView tableView, Employees employee){
         try {
             tableView.getItems().remove(employee);
-            EmployeeRepository.removeEmployee(employee);
+            employeeRepository.removeEmployee(employee);
         }catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Hiba üzenet");
