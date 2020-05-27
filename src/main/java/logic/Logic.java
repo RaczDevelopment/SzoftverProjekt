@@ -32,7 +32,7 @@ public class Logic {
 
         ArrayList<Statistics> finalList = new ArrayList<>();
         List<String> names = new ArrayList<>();
-        DecimalFormat f = new DecimalFormat("##.00");
+        DecimalFormat f = new DecimalFormat("##,00");
 
         Double sum = sumPayment(filteredList);
 
