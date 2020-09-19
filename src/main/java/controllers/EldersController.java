@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.common.io.Resources;
 import database.EldersRepository;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -16,6 +17,7 @@ import javafx.util.converter.LocalDateStringConverter;
 import model.Elders;
 import org.tinylog.Logger;
 
+import java.net.URL;
 import java.time.LocalDate;
 
 public class EldersController {
@@ -94,7 +96,16 @@ public class EldersController {
 
     private EldersRepository eldersRepository = new EldersRepository();
 
-    private void initColumn(){
+    @FXML
+    protected void initialize() {
+        new Thread(new Runnable() {
+            @Override public void run() {
+                handleSearch();
+            }
+        }).start();
+    }
+
+    private void initColumn() {
         columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
@@ -113,13 +124,13 @@ public class EldersController {
 
     @FXML
     private void handleSearch() {
-        try{
+        try {
             String selectedName = "%" + tfSearch.getText().trim().toLowerCase() + "%";
             tfSearch.clear();
             ObservableList<Elders> data = FXCollections.observableArrayList(eldersRepository.findByName(selectedName));
             elders.setItems(data);
             initColumn();
-        } catch (Exception e){
+        } catch (Exception e) {
             Logger.error("Search by invalid type");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Hiba üzenet");
@@ -157,7 +168,7 @@ public class EldersController {
             tfType.clear();
 
             eldersRepository.insertElder(newElder);
-        } catch (Exception e){
+        } catch (Exception e) {
             Logger.error("Inserting invalid type");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Hiba üzenet");
@@ -167,7 +178,7 @@ public class EldersController {
         }
     }
 
-    private void editTableColumns (){
+    private void editTableColumns() {
         columnName.setCellFactory(TextFieldTableCell.forTableColumn());
         columnName.setOnEditCommit(expStringCellEditEvent -> {
             Elders tmp = expStringCellEditEvent.getTableView().getItems().
@@ -267,11 +278,11 @@ public class EldersController {
         elders.setEditable(true);
     }
 
-    private void deleteRow(TableView tableView, Elders elders){
+    private void deleteRow(TableView tableView, Elders elders) {
         try {
             tableView.getItems().remove(elders);
             eldersRepository.removeEmployee(elders);
-        }catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Hiba üzenet");
             alert.setHeaderText(null);

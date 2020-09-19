@@ -88,6 +88,15 @@ public class EmployeeController {
     }
 
     @FXML
+    protected void initialize() {
+        new Thread(new Runnable() {
+            @Override public void run() {
+                handleSearch();
+            }
+        }).start();
+    }
+
+    @FXML
     private void handleSearch() {
         try {
             String selectedName = "%" + tfSearch.getText().trim().toLowerCase() + "%";
